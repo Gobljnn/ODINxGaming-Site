@@ -1,0 +1,73 @@
+﻿@model OdinXSiteMVC2.Models.Exec
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Exec</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="execFirstName" class="control-label"></label>
+                <input asp-for="execFirstName" class="form-control" />
+                <span asp-validation-for="execFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="execLastName" class="control-label"></label>
+                <input asp-for="execLastName" class="form-control" />
+                <span asp-validation-for="execLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="execGamingTag" class="control-label"></label>
+                <input asp-for="execGamingTag" class="form-control" />
+                <span asp-validation-for="execGamingTag" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="username" class="control-label"></label>
+                <input asp-for="username" class="form-control" />
+                <span asp-validation-for="username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="execTitle" class="control-label"></label>
+                <input asp-for="execTitle" class="form-control" />
+                <span asp-validation-for="execTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="execHierarchy" class="control-label"></label>
+                <input asp-for="execHierarchy" class="form-control" />
+                <span asp-validation-for="execHierarchy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="loginAmt" class="control-label"></label>
+                <input asp-for="loginAmt" class="form-control" />
+                <span asp-validation-for="loginAmt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="lastLogin" class="control-label"></label>
+                <input asp-for="lastLogin" class="form-control" />
+                <span asp-validation-for="lastLogin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="favGame" class="control-label"></label>
+                <input asp-for="favGame" class="form-control" />
+                <span asp-validation-for="favGame" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,83 @@
+﻿@model IEnumerable<OdinXSiteMVC2.Models.Exec>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.execFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.execLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.execGamingTag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.execTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.execHierarchy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.loginAmt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lastLogin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.favGame)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.execFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.execLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.execGamingTag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.execTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.execHierarchy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.loginAmt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastLogin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.favGame)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.execID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.execID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.execID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
