@@ -78,7 +78,7 @@ namespace OdinXSiteMVC2 {
             //using (var scope = app.ApplicationServices.CreateScope()) {
             //    var services = scope.ServiceProvider;
             //    SeedData.Initialize(services);
-            //}//
+            //}
 
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
