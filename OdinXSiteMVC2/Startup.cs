@@ -24,18 +24,27 @@ namespace OdinXSiteMVC2 {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            ////////////////////////////////////////////////////////Authorization DB
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
+            //////////////////////////////////////////////////////Autho - User
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+            /////////////////////////////////////////////////////// User Profile info
 
             services.AddDbContext<OdinXSiteMVC2Context>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("OdinXSiteMVC2Context")));
             services.AddRazorPages();
+            //////////////////////////////////////////////////// New user registration - c#corner
+            
+            //services.AddIdentity<ApplicationUser, ApplicationRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>()
+            //    .AddDefaultTokenProviders();
+            ///////////////////////////////////////////////////////
 
             services.Configure<IdentityOptions>(options => {
 
@@ -68,6 +77,7 @@ namespace OdinXSiteMVC2 {
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
+            ///////////////////////////////////////////////////////////////
 
             //services.AddScoped<>()
 
@@ -78,7 +88,7 @@ namespace OdinXSiteMVC2 {
             //using (var scope = app.ApplicationServices.CreateScope()) {
             //    var services = scope.ServiceProvider;
             //    SeedData.Initialize(services);
-            //}
+            //}//
 
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
