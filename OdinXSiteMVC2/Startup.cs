@@ -39,11 +39,7 @@ namespace OdinXSiteMVC2 {
             services.AddDbContext<OdinXSiteMVC2Context>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("OdinXSiteMVC2Context")));
             services.AddRazorPages();
-            //////////////////////////////////////////////////// New user registration - c#corner
-            
-            //services.AddIdentity<ApplicationUser, ApplicationRole>()
-            //    .AddEntityFrameworkStores<ApplicationDbContext>()
-            //    .AddDefaultTokenProviders();
+
             ///////////////////////////////////////////////////////
 
             services.Configure<IdentityOptions>(options => {
