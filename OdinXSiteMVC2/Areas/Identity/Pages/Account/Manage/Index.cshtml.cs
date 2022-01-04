@@ -37,6 +37,11 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
 
+            [DataType(DataType.Text)]
+            [MaxLength(300)]
+            [Display(Name = "Bio")]
+            public string Bio { get; set; }
+
 
         }
 
@@ -44,12 +49,13 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var bio = user.bio;
 
             Username = userName;
 
-            Input = new InputModel
-            {
-                PhoneNumber = phoneNumber
+            Input = new InputModel {
+                PhoneNumber = phoneNumber,
+                Bio = bio
             };
         }
 
@@ -88,6 +94,12 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
                     StatusMessage = "Unexpected error when trying to set phone number.";
                     return RedirectToPage();
                 }
+            }
+
+            var bio = user.bio;
+            if (Input.Bio != bio) {
+                user.bio = Input.Bio;
+                await _userManager.UpdateAsync(user);
             }
 
             await _signInManager.RefreshSignInAsync(user);

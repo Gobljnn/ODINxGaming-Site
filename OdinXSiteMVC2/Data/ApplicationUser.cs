@@ -5,6 +5,7 @@ namespace OdinXSiteMVC2.Data {
 
         public string firstName {get;set;}
         public string lastName {get;set;}
+        public string bio { get; set; }
 
     }
 }
