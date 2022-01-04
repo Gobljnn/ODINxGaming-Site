@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OdinXSiteMVC2.Data;
 
-namespace OdinXSiteMVC2.Migrations
+namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 {
     [DbContext(typeof(OdinXSiteMVC2Context))]
-    [Migration("20220102005733_withseed2")]
-    partial class withseed2
+    [Migration("20220104024427_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,6 +43,9 @@ namespace OdinXSiteMVC2.Migrations
                     b.Property<string>("execTitle")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("favGame")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("lastLogin")
                         .HasColumnType("datetime2");
 
@@ -55,6 +58,44 @@ namespace OdinXSiteMVC2.Migrations
                     b.HasKey("execID");
 
                     b.ToTable("Exec");
+
+                    b.HasData(
+                        new
+                        {
+                            execID = 1,
+                            execFirstName = "Dammy",
+                            execGamingTag = "Gobljnn",
+                            execHierarchy = "Founding",
+                            execLastName = "Adebayo",
+                            execTitle = "Programmer",
+                            favGame = "OW",
+                            lastLogin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            username = "Gobljnn"
+                        },
+                        new
+                        {
+                            execID = 2,
+                            execFirstName = "Kitan",
+                            execGamingTag = "Kitan3000",
+                            execHierarchy = "Founding",
+                            execLastName = "Adebowale",
+                            execTitle = "Photographer",
+                            favGame = "COD",
+                            lastLogin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            username = "Kitan3000"
+                        },
+                        new
+                        {
+                            execID = 3,
+                            execFirstName = "Nathan",
+                            execGamingTag = "Fishboy8383",
+                            execHierarchy = "Founding",
+                            execLastName = "Stayer",
+                            execTitle = "Community Manager",
+                            favGame = "League",
+                            lastLogin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            username = "Fishboy8383"
+                        });
                 });
 #pragma warning restore 612, 618
         }
