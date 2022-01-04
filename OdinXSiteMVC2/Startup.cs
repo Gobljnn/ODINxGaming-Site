@@ -31,7 +31,7 @@ namespace OdinXSiteMVC2 {
             services.AddDatabaseDeveloperPageExceptionFilter();
             //////////////////////////////////////////////////////Autho - User
 
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             /////////////////////////////////////////////////////// User Profile info
