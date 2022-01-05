@@ -61,7 +61,9 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    
+    background-size:cover;
+    background-position: center center;
+    background-image: url('/Assets/Pic/26293.jpg');
 }
 .footer {
   position: absolute;
