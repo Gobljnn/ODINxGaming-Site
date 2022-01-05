@@ -56,6 +56,10 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
             [Display(Name = "Last Name")]
             public string lastName { get; set; }
             [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "User name")]
+            public string userName { get; set; } 
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -84,7 +88,7 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, firstName=Input.firstName, lastName=Input.lastName };
+                var user = new ApplicationUser { UserName = Input.userName, Email = Input.Email, firstName=Input.firstName, lastName=Input.lastName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -108,7 +112,9 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return Redirect("~/Identity/Account/Manage");
+                        //return RedirectToPage("/Account/ConfirmEmail", new { email = Input.Email, returnUrl = returnUrl });
+                        //return LocalRedirect(returnUrl);
                     }
                 }
                 foreach (var error in result.Errors)

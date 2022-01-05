@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OdinXSiteMVC2.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,6 +28,7 @@ namespace OdinXSiteMVC2.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     firstName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     lastName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    bio = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

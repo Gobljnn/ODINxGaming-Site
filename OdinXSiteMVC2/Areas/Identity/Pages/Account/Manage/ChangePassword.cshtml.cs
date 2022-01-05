@@ -72,6 +72,7 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
         {
             if (!ModelState.IsValid)
             {
+                
                 return Page();
             }
 
@@ -91,7 +92,9 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+            await _userManager.UpdateSecurityStampAsync(user);
             await _signInManager.RefreshSignInAsync(user);
+           
             _logger.LogInformation("User changed their password successfully.");
             StatusMessage = "Your password has been changed.";
 

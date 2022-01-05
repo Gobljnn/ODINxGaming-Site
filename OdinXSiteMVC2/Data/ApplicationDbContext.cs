@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OdinXSiteMVC2.Models;
 using System;
@@ -24,5 +25,10 @@ namespace OdinXSiteMVC2.Data {
                 .HasMaxLength(250);
 
         }
+
+        //Mockdata is below
+        //add-migration -context OdinXSiteMVC2Context
+
+        
     }
 }

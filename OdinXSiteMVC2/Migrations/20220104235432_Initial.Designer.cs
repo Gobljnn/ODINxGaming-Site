@@ -10,8 +10,8 @@ using OdinXSiteMVC2.Data;
 namespace OdinXSiteMVC2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220104024250_initial")]
-    partial class initial
+    [Migration("20220104235432_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -207,6 +207,9 @@ namespace OdinXSiteMVC2.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("bio")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("firstName")
                         .HasMaxLength(250)

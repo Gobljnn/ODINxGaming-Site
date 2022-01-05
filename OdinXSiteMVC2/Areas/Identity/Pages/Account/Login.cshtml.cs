@@ -12,24 +12,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using OdinXSiteMVC2.Data;
+using static OdinXSiteMVC2.Areas.Identity.Pages.Account.LoginModel;
+using OdinXSiteMVC2.Models;
 
 namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
-    public class LoginModel : PageModel
-    {
+    public class LoginModel : PageModel {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, 
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
             ILogger<LoginModel> logger,
-            UserManager<ApplicationUser> userManager)
-        {
+            UserManager<ApplicationUser> userManager) {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
         }
+
+
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -41,11 +43,11 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
         [TempData]
         public string ErrorMessage { get; set; }
 
-        public class InputModel
-        {
+        public class InputModel {
             [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+            //[EmailAddress]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
@@ -55,10 +57,8 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
-        {
-            if (!string.IsNullOrEmpty(ErrorMessage))
-            {
+        public async Task OnGetAsync(string returnUrl = null) {
+            if (!string.IsNullOrEmpty(ErrorMessage)) {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
@@ -77,12 +77,12 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
         
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
+                var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
