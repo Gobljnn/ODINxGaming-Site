@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body background="">
+<body>
     
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -41,9 +41,9 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container" background="~/Assets/Pic/26293.jpg">
         <main role="main" class="pb-3">
-            <img src="~/Assets/Pic/26293.jpg" />   
+            @*<img src="~/Assets/Pic/26293.jpg" style="width:200px;height=200px;" />   *@
             @RenderBody()
             @RenderSection("head", required: false)
         </main>
@@ -65,7 +65,7 @@
 @section head{
     <style type="text/css">
          body {
-            background-image: url('/Assets/Pic/26293.jpg');
+            /*background-image: url('/Assets/Pic/26293.jpg');*/
             margin: 0;
         }
     </style>
