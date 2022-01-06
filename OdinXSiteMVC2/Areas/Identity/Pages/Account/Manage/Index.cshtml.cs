@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -41,7 +43,8 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
             [MaxLength(300)]
             [Display(Name = "Bio")]
             public string Bio { get; set; }
-
+            [Display(Name = "Profile Picture")]
+            public byte[] profilePic { get; set; }
 
         }
 
@@ -50,12 +53,14 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var bio = user.bio;
+            var profilePic = user.profilePic;
 
             Username = userName;
 
             Input = new InputModel {
                 PhoneNumber = phoneNumber,
-                Bio = bio
+                Bio = bio,
+                profilePic = profilePic
             };
         }
 
@@ -99,6 +104,17 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
             var bio = user.bio;
             if (Input.Bio != bio) {
                 user.bio = Input.Bio;
+                await _userManager.UpdateAsync(user);
+            }
+
+            var profilePic = user.profilePic;
+            if (Request.Form.Files.Count > 0) {
+                IFormFile file = Request.Form.Files.FirstOrDefault();
+                using (var dataStream = new MemoryStream()) {
+                    await file.CopyToAsync(dataStream);
+                    user.profilePic = dataStream.ToArray();
+                }
+
                 await _userManager.UpdateAsync(user);
             }
 

@@ -44,15 +44,14 @@
     </header>
     <div class="container" style="background-image:url('~\Assets\css\Images\26293.jpg')" style="background-image:url('file:///E:\Github_Local_Repo\OdinxSite_Port\OdinXSiteMVC2\wwwroot\css\Images\26293.jpg')">
         <main role="main" class="pb-3">
-            @*<img src="~/Assets/Pic/26293.jpg" style="width:200px;height=200px;" />   *@
             @RenderBody()
-            @RenderSection("head", required: false)
+
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - OdinXSiteMVC2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - OdinXSiteMVC2 - <a class="text-bottom" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -62,12 +61,3 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-
-@section head{
-    <style type="text/css">
-         body {
-            /*background-image: url('/Assets/Pic/26293.jpg');*/
-            margin: 0;
-        }
-    </style>
-}
