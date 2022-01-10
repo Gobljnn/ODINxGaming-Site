@@ -12,6 +12,10 @@ a {
     color: #F9C64D;
 }
 
+a:hover {
+    color: #FFFFFF;
+}
+
 .btn-primary {
     color: #000000;
     background-color: #F9C64D;
