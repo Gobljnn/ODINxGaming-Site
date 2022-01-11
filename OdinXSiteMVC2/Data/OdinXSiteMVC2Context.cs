@@ -30,10 +30,8 @@ namespace OdinXSiteMVC2.Data
                     execGamingTag = "Gobljnn",
                     execTitle = "Programmer",
                     execHierarchy = "Founding",
-                    //loginAmt = 2,
-                    //lastLogin = DateTime.Parse("2021-12-29")
-                    favGame = "OW"
-
+                    favGame = "OW",
+                    execPic = null
                 },
 
                 new Exec {
@@ -44,9 +42,8 @@ namespace OdinXSiteMVC2.Data
                     execGamingTag = "Kitan3000",
                     execTitle = "Photographer",
                     execHierarchy = "Founding",
-                    favGame = "COD"
-                    //loginAmt = 9,
-                    //lastLogin = DateTime.Parse("2021-9-3")
+                    favGame = "COD",
+                    execPic = null
                 },
 
                 new Exec {
@@ -57,9 +54,8 @@ namespace OdinXSiteMVC2.Data
                     execGamingTag = "Fishboy8383",
                     execTitle = "Community Manager",
                     execHierarchy = "Founding",
-                    favGame = "League"
-                    //loginAmt = 12,
-                    //lastLogin = DateTime.Parse("2021-12-15")
+                    favGame = "League",
+                    execPic = null
                 }
             );
 

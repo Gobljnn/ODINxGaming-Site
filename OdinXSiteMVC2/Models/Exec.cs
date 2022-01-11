@@ -25,7 +25,9 @@ namespace OdinXSiteMVC2.Models {
         public string execHierarchy { get; set; }
         [Display(Name = "login")]
         public int? loginAmt { get; set; }
-        [DataType(DataType.DateTime)]
-        public DateTime lastLogin { get; set; }
+        //[DataType(DataType.DateTime)]
+        //public DateTime lastLogin { get; set; }
+
+        public byte[] execPic { get; set; }
     }
 }

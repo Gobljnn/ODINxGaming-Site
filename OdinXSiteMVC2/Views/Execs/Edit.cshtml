@@ -48,15 +48,34 @@
                 <input asp-for="loginAmt" class="form-control" />
                 <span asp-validation-for="loginAmt" class="text-danger"></span>
             </div>
-            <div class="form-group">
+@*            <div class="form-group">
                 <label asp-for="lastLogin" class="control-label"></label>
                 <input asp-for="lastLogin" class="form-control" />
                 <span asp-validation-for="lastLogin" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="favGame" class="control-label"></label>
                 <input asp-for="favGame" class="form-control" />
                 <span asp-validation-for="favGame" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="execPic" style="width: 100%;"></label>
+                @if (Model.execPic != null)
+                {
+                    <img id="profilePicture" style="width:100%;height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.execPic))">
+                }
+                else
+                {
+                    <img id="profilePicture" style="width:100%;height:350px; object-fit:cover" src="">
+                }
+                <input type="file"
+                       accept=".png,.jpg,.jpeg,.gif,.tif"
+                       asp-for="execPic"
+                       
+                       id="form-controlss"
+                       style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                       onchange="document.getElementById('execPic').src = window.URL.createObjectURL(this.files[0])" />
+                <span asp-validation-for="execPic" class="text-danger"></span>
             </div>
 
 

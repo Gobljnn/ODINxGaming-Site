@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OdinXSiteMVC2.Data;
 
@@ -15,43 +14,41 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.13")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64)
+                .HasAnnotation("ProductVersion", "5.0.13");
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.Exec", b =>
                 {
                     b.Property<int>("execID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("execFirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("execGamingTag")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("execHierarchy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("execLastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
+
+                    b.Property<byte[]>("execPic")
+                        .HasColumnType("longblob");
 
                     b.Property<string>("execTitle")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("favGame")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("lastLogin")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("loginAmt")
                         .HasColumnType("int");
 
                     b.Property<string>("username")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("execID");
 
@@ -67,7 +64,6 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                             execLastName = "Adebayo",
                             execTitle = "Programmer",
                             favGame = "OW",
-                            lastLogin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             username = "Gobljnn"
                         },
                         new
@@ -79,7 +75,6 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                             execLastName = "Adebowale",
                             execTitle = "Photographer",
                             favGame = "COD",
-                            lastLogin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             username = "Kitan3000"
                         },
                         new
@@ -91,7 +86,6 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                             execLastName = "Stayer",
                             execTitle = "Community Manager",
                             favGame = "League",
-                            lastLogin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             username = "Fishboy8383"
                         });
                 });

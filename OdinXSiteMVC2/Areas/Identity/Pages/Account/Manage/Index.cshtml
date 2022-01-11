@@ -39,13 +39,34 @@
                        accept=".png,.jpg,.jpeg,.gif,.tif"
                        asp-for="Input.profilePic"
                        
-                       id="form-controlss"
+                       id="form-controls"
                        style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
                        onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
                 <span asp-validation-for="Input.profilePic" class="text-danger"></span>
             </div>
 
-            <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
+
+       @*     <div>
+                C#
+                <form enctype="multipart/form-data" method="post">
+                    <dl>
+                        <dt>
+                            <label asp-for="FileUpload.FormFile"></label>
+                        </dt>
+                        <dd>
+                            <input asp-for="FileUpload.FormFile" type="file">
+                            <span asp-validation-for="FileUpload.FormFile"></span>
+                        </dd>
+                    </dl>
+                    <input asp-page-handler="Upload" class="btn" type="submit" value="Upload" />
+                </form>
+            </div>
+
+            <div>
+                
+            </div>*@
+
+            <button id="update-profile-button" type="submit" class="btn btn-primary" click >Save</button>
         </form>
     </div>
 </div>

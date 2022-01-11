@@ -27,19 +27,32 @@ namespace OdinXSiteMVC2 {
             ////////////////////////////////////////////////////////Authorization DB
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnection"))
+                );
             services.AddDatabaseDeveloperPageExceptionFilter();
             //////////////////////////////////////////////////////Autho - User
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
-            /////////////////////////////////////////////////////// User Profile info
+            /////////////////////////////////////////////////////// User Profile info // MSSMS
 
+            //services.AddDbContext<OdinXSiteMVC2Context>(options =>
+            //    options.UseSqlServer(
+            //        Configuration.GetConnectionString("OdinXSiteMVC2Context"))
+            //);
+            //services.AddRazorPages();
+
+            /////////////////////////////////////////////////////// MySql
+            var cs = Configuration.GetConnectionString("OdinXSiteMVC2Context");
+            //get server version (can get either dynamically or manually from the actual server - this is gotten dynamically)
+            var sv = ServerVersion.AutoDetect(cs);
+
+            //add type of DB server
             services.AddDbContext<OdinXSiteMVC2Context>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("OdinXSiteMVC2Context")));
+                options.UseMySql(cs, sv)
+            );
             services.AddRazorPages();
-
             ///////////////////////////////////////////////////////
 
             services.Configure<IdentityOptions>(options => {

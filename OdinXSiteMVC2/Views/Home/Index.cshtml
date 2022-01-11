@@ -1,8 +1,33 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using OdinXSiteMVC2.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    
+@if (SignInManager.IsSignedIn(User)){
+        <h1 class="display-4">Welcome @User.Identity.Name!</h1>
+}
+else {
+     <h1 class="display-4">Welcome!</h1>
+        
+     <p>Log in/Register to obtain full access to our site</p>
+}
+
+    <div class="index-container">
+        <p>
+            We are group of gamers who are just here to pop off and roll some kids on the interwebs. We play different game genres which includes FPS, MOBA, Racing, Open-World and much more.
+            If there are any games you want us to check out, or play with us, join our discord and let one of us know. <br> <br>
+            Our motto is every round we play is <span style="text-decoration: underline; color: rgba(199, 185, 148, 0.946);">always winnable </span></u> ... even if it's freeroam GTA (Grand Theft Auto) ... lolz
+        </p>
+        <p>
+            So come join the crew as we game, chill, talk, and just generally have a great time whispering in each other's ears ...  Chupapi Muñañyo
+        </p>
+    </div>
+            
 </div>
+
+@* Add some more stuff here, pics link to discord any thing .. highlights etc *@

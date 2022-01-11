@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.execPic)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.execFirstName)
             </th>
             <th>
@@ -31,12 +34,6 @@
                 @Html.DisplayNameFor(model => model.execHierarchy)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.loginAmt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.lastLogin)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.favGame)
             </th>
             <th></th>
@@ -45,6 +42,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.execPic)     
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.execFirstName)
             </td>
@@ -64,18 +64,12 @@
                 @Html.DisplayFor(modelItem => item.execHierarchy)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.loginAmt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.lastLogin)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.favGame)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.execID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.execID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.execID">Delete</a>
+                @*<a asp-action="Edit" asp-route-id="@item.execID">Edit</a> |*@
+                <a asp-action="Details" asp-route-id="@item.execID">Details</a> 
+                @*<a asp-action="Delete" asp-route-id="@item.execID">Delete</a>*@
             </td>
         </tr>
 }

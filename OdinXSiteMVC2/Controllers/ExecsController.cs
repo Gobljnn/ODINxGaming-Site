@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +15,11 @@ namespace OdinXSiteMVC2.Controllers
     public class ExecsController : Controller
     {
         private readonly OdinXSiteMVC2Context _context;
+
+        public class InputModel {
+            public byte[] execID { get; set; }
+
+        }
 
         public ExecsController(OdinXSiteMVC2Context context)
         {
@@ -87,7 +94,7 @@ namespace OdinXSiteMVC2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("execID,execFirstName,execLastName,execGamingTag,username,execTitle,execHierarchy,favGame,loginAmt,lastLogin")] Exec exec)
+        public async Task<IActionResult> Edit(int id, [Bind("execID,execFirstName,execLastName,execGamingTag,username,execTitle,execHierarchy,favGame,loginAmt")] Exec exec)
         {
             if (id != exec.execID)
             {
@@ -100,6 +107,23 @@ namespace OdinXSiteMVC2.Controllers
                 {
                     _context.Update(exec);
                     await _context.SaveChangesAsync();
+
+
+/*------------------------
+                        -----------------------------------------------*/
+                    
+
+
+
+
+
+
+
+
+
+
+/*------------------------
+                        -----------------------------------------------*/
                 }
                 catch (DbUpdateConcurrencyException)
                 {

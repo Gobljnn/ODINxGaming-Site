@@ -84,4 +84,10 @@ body {
 
 .text-bottom{
     color: #fff
+
+}
+
+p {
+    font-family: 'Anton';
+    color:grey;
 }
