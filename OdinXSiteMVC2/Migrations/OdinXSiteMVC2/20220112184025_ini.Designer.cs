@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OdinXSiteMVC2.Data;
 
 namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 {
     [DbContext(typeof(OdinXSiteMVC2Context))]
-    partial class OdinXSiteMVC2ContextModelSnapshot : ModelSnapshot
+    [Migration("20220112184025_ini")]
+    partial class ini
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,10 +98,10 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("imageName")
-                        .HasColumnType("longtext");
+                    b.Property<int>("imageID")
+                        .HasColumnType("int");
 
-                    b.Property<string>("imagePath")
+                    b.Property<string>("imageString")
                         .HasColumnType("longtext");
 
                     b.Property<int>("userID")
@@ -112,7 +114,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 
                     b.HasIndex("userID");
 
-                    b.ToTable("UserFiles");
+                    b.ToTable("userImage");
                 });
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.UserImage", b =>

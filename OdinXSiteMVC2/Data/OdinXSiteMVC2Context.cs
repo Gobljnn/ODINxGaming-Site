@@ -14,7 +14,8 @@ namespace OdinXSiteMVC2.Data
         {
         }
 
-        public DbSet<OdinXSiteMVC2.Models.Exec> Exec { get; set; } //model the centext is based on
+        public DbSet<OdinXSiteMVC2.Models.Exec> Exec { get; set; } //model the centext is based on\
+        public DbSet<OdinXSiteMVC2.Models.UserImage> UserFiles { get; set; }
 
         //Mockdata is below
         //add-migration -context OdinXSiteMVC2Context

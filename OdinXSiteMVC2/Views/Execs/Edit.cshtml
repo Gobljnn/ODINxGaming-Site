@@ -1,7 +1,7 @@
 ﻿@model OdinXSiteMVC2.Models.Exec
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit2";
 }
 
 <h1>Edit</h1>
@@ -58,31 +58,33 @@
                 <input asp-for="favGame" class="form-control" />
                 <span asp-validation-for="favGame" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="execPic" style="width: 100%;"></label>
-                @if (Model.execPic != null)
-                {
-                    <img id="profilePicture" style="width:100%;height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.execPic))">
-                }
-                else
-                {
-                    <img id="profilePicture" style="width:100%;height:350px; object-fit:cover" src="">
-                }
-                <input type="file"
-                       accept=".png,.jpg,.jpeg,.gif,.tif"
-                       asp-for="execPic"
-                       
-                       id="form-controlss"
-                       style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
-                       onchange="document.getElementById('execPic').src = window.URL.createObjectURL(this.files[0])" />
-                <span asp-validation-for="execPic" class="text-danger"></span>
-            </div>
+
+            
+
+
+<div>
+    @ViewData["Message"]
+                
+</div>
 
 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+
+            <div>
+                Cheers
+                <form enctype="multipart/form-data" method="post" asp-controller="Execs" asp-action="Imgupload">
+                    <dl>
+                        <dd>
+                            
+                            <input name="imageFile" type="file">
+                        </dd>
+                    </dl>
+                    <input class="btn btn-primary" type="submit" value="Upload" />
+                </form>
+            </div>
     </div>
 </div>
 

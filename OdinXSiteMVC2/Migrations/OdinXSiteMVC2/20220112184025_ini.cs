@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
@@ -32,11 +31,37 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     execHierarchy = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     loginAmt = table.Column<int>(type: "int", nullable: true),
-                    execPic = table.Column<byte[]>(type: "longblob", nullable: true)
+                    execPic = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Exec", x => x.execID);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "userImage",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    userName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    userID = table.Column<int>(type: "int", nullable: false),
+                    imageID = table.Column<int>(type: "int", nullable: false),
+                    imageString = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_userImage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_userImage_Exec_userID",
+                        column: x => x.userID,
+                        principalTable: "Exec",
+                        principalColumn: "execID",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -54,10 +79,18 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                 table: "Exec",
                 columns: new[] { "execID", "execFirstName", "execGamingTag", "execHierarchy", "execLastName", "execPic", "execTitle", "favGame", "loginAmt", "username" },
                 values: new object[] { 3, "Nathan", "Fishboy8383", "Founding", "Stayer", null, "Community Manager", "League", null, "Fishboy8383" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_userImage_userID",
+                table: "userImage",
+                column: "userID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "userImage");
+
             migrationBuilder.DropTable(
                 name: "Exec");
         }

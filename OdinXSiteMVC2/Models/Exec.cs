@@ -28,6 +28,6 @@ namespace OdinXSiteMVC2.Models {
         //[DataType(DataType.DateTime)]
         //public DateTime lastLogin { get; set; }
 
-        public byte[] execPic { get; set; }
+        public string execPic { get; set; }
     }
 }

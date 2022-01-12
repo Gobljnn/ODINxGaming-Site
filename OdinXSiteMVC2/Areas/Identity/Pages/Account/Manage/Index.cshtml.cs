@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +17,15 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager, IWebHostEnvironment webhost)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _webHostEnvironment = webhost;
         }
 
         public string Username { get; set; }
@@ -109,13 +112,14 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
 
             var profilePic = user.profilePic;
             if (Request.Form.Files.Count > 0) {
-                IFormFile file = Request.Form.Files.FirstOrDefault();
-                using (var dataStream = new MemoryStream()) {
-                    await file.CopyToAsync(dataStream);
-                    user.profilePic = dataStream.ToArray();
-                }
+                /*                IFormFile file = Request.Form.Files.FirstOrDefault();
+                                using (var dataStream = new MemoryStream()) {
+                                    await file.CopyToAsync(dataStream);
+                                    user.profilePic = dataStream.ToArray();
+                                }
 
-                await _userManager.UpdateAsync(user);
+                                await _userManager.UpdateAsync(user);*/
+
             }
 
             await _signInManager.RefreshSignInAsync(user);
