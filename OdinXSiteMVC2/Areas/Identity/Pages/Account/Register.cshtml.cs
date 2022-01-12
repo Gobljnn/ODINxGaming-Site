@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using OdinXSiteMVC2.Data;
+using OdinXSiteMVC2.Models;
+using OdinXSiteMVC2.Models.DTO;
 
 namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
 {
@@ -24,17 +26,21 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly OdinXSiteMVC2Context _context;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            OdinXSiteMVC2Context context)
+            
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -88,19 +94,34 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+
+                //create entities for db insertion
                 var user = new ApplicationUser { UserName = Input.userName, Email = Input.Email, firstName=Input.firstName, lastName=Input.lastName };
+                var newreg = new NewRegDTO { name = Input.firstName, userName = Input.userName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
+
+
+                    //add Indentity created items to personal db
+                    newreg.id = user.Id;
+                    _context.NewReg.Add(newreg);
+                    _context.SaveChanges();
+
+
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
@@ -113,8 +134,6 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return Redirect("~/Identity/Account/Manage");
-                        //return RedirectToPage("/Account/ConfirmEmail", new { email = Input.Email, returnUrl = returnUrl });
-                        //return LocalRedirect(returnUrl);
                     }
                 }
                 foreach (var error in result.Errors)

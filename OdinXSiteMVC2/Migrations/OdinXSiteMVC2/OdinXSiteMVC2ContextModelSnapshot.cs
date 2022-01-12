@@ -17,6 +17,22 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.13");
 
+            modelBuilder.Entity("OdinXSiteMVC2.Models.DTO.NewRegDTO", b =>
+                {
+                    b.Property<string>("id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("userName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("id");
+
+                    b.ToTable("NewReg");
+                });
+
             modelBuilder.Entity("OdinXSiteMVC2.Models.Exec", b =>
                 {
                     b.Property<int>("execID")
@@ -110,20 +126,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 
                     b.HasKey("Id");
 
-                    b.HasIndex("userID");
-
                     b.ToTable("UserFiles");
-                });
-
-            modelBuilder.Entity("OdinXSiteMVC2.Models.UserImage", b =>
-                {
-                    b.HasOne("OdinXSiteMVC2.Models.Exec", "Users")
-                        .WithMany()
-                        .HasForeignKey("userID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

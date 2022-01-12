@@ -9,8 +9,8 @@ using OdinXSiteMVC2.Data;
 namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 {
     [DbContext(typeof(OdinXSiteMVC2Context))]
-    [Migration("20220112184251_imgname")]
-    partial class imgname
+    [Migration("20220112212037_update")]
+    partial class update
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,6 +18,22 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.13");
+
+            modelBuilder.Entity("OdinXSiteMVC2.Models.DTO.NewRegDTO", b =>
+                {
+                    b.Property<string>("id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("userName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("id");
+
+                    b.ToTable("NewReg");
+                });
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.Exec", b =>
                 {
@@ -101,7 +117,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     b.Property<string>("imageName")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("imageString")
+                    b.Property<string>("imagePath")
                         .HasColumnType("longtext");
 
                     b.Property<int>("userID")
@@ -112,20 +128,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 
                     b.HasKey("Id");
 
-                    b.HasIndex("userID");
-
-                    b.ToTable("userImage");
-                });
-
-            modelBuilder.Entity("OdinXSiteMVC2.Models.UserImage", b =>
-                {
-                    b.HasOne("OdinXSiteMVC2.Models.Exec", "Users")
-                        .WithMany()
-                        .HasForeignKey("userID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Users");
+                    b.ToTable("UserFiles");
                 });
 #pragma warning restore 612, 618
         }

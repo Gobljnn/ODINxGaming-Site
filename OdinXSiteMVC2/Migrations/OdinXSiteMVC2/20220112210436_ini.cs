@@ -41,7 +41,24 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "userImage",
+                name: "NewReg",
+                columns: table => new
+                {
+                    id = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    userName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NewReg", x => x.id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "UserFiles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -49,19 +66,21 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     userName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     userID = table.Column<int>(type: "int", nullable: false),
-                    imageID = table.Column<int>(type: "int", nullable: false),
-                    imageString = table.Column<string>(type: "longtext", nullable: true)
+                    UsersexecID = table.Column<int>(type: "int", nullable: true),
+                    imageName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    imagePath = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_userImage", x => x.Id);
+                    table.PrimaryKey("PK_UserFiles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_userImage_Exec_userID",
-                        column: x => x.userID,
+                        name: "FK_UserFiles_Exec_UsersexecID",
+                        column: x => x.UsersexecID,
                         principalTable: "Exec",
                         principalColumn: "execID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -81,15 +100,18 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                 values: new object[] { 3, "Nathan", "Fishboy8383", "Founding", "Stayer", null, "Community Manager", "League", null, "Fishboy8383" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_userImage_userID",
-                table: "userImage",
-                column: "userID");
+                name: "IX_UserFiles_UsersexecID",
+                table: "UserFiles",
+                column: "UsersexecID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "userImage");
+                name: "NewReg");
+
+            migrationBuilder.DropTable(
+                name: "UserFiles");
 
             migrationBuilder.DropTable(
                 name: "Exec");

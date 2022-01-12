@@ -9,8 +9,8 @@ using OdinXSiteMVC2.Data;
 namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 {
     [DbContext(typeof(OdinXSiteMVC2Context))]
-    [Migration("20220112190727_dbchange")]
-    partial class dbchange
+    [Migration("20220112210436_ini")]
+    partial class ini
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,6 +18,22 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.13");
+
+            modelBuilder.Entity("OdinXSiteMVC2.Models.DTO.NewRegDTO", b =>
+                {
+                    b.Property<string>("id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("userName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("id");
+
+                    b.ToTable("NewReg");
+                });
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.Exec", b =>
                 {
@@ -98,6 +114,9 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int?>("UsersexecID")
+                        .HasColumnType("int");
+
                     b.Property<string>("imageName")
                         .HasColumnType("longtext");
 
@@ -112,7 +131,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 
                     b.HasKey("Id");
 
-                    b.HasIndex("userID");
+                    b.HasIndex("UsersexecID");
 
                     b.ToTable("UserFiles");
                 });
@@ -121,9 +140,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                 {
                     b.HasOne("OdinXSiteMVC2.Models.Exec", "Users")
                         .WithMany()
-                        .HasForeignKey("userID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UsersexecID");
 
                     b.Navigation("Users");
                 });

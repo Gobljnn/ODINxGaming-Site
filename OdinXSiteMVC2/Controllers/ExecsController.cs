@@ -18,6 +18,7 @@ namespace OdinXSiteMVC2.Controllers
         private readonly OdinXSiteMVC2Context _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
+        protected int userIDC;
         public ExecsController(OdinXSiteMVC2Context context, IWebHostEnvironment webhost)
         {
             _context = context;
@@ -85,6 +86,7 @@ namespace OdinXSiteMVC2.Controllers
             {
                 return NotFound();
             }
+            userIDC = exec.execID;
             return View(exec);
         }
 
@@ -102,6 +104,8 @@ namespace OdinXSiteMVC2.Controllers
 
             if (ModelState.IsValid)
             {
+
+                
                 try
                 {
                     _context.Update(exec);
@@ -147,10 +151,11 @@ namespace OdinXSiteMVC2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[ActionName("Imgupload")]
-        public async Task<IActionResult> Imgupload(int? id, IFormFile imageFile, UserImage userImage ) {
+        public async Task<IActionResult> Imgupload(IFormFile imageFile, UserImage userImage ) {
 
             //get the extension of the user uploaded file
             string ext = Path.GetExtension(imageFile.FileName);
+            var id = userIDC;
 
             //jpg, jpeg, png, gif allowed
             if (ext == ".jpg" || ext == ".png" || ext == ".jpeg" || ext == ".jif") {
@@ -187,8 +192,8 @@ namespace OdinXSiteMVC2.Controllers
                 ViewData["Message"] = "The Selected File " + imageFile.FileName + " did not save. Check the image file type (only JPG, JPEG, GIF, PNG allowed  ";
             }
 
-            return View();
-            //return RedirectToAction(nameof(Index));
+            //return View();
+            return RedirectToAction(nameof(Index));
         }
 
         /*------------------------

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OdinXSiteMVC2.Data;
+using OdinXSiteMVC2.Models;
+using OdinXSiteMVC2.Models.DTO;
 
 namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
 {
@@ -18,14 +20,14 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly OdinXSiteMVC2Context _context;
 
-        public IndexModel(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager, IWebHostEnvironment webhost)
-        {
+        public IndexModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
+                        IWebHostEnvironment webhost,OdinXSiteMVC2Context context){
             _userManager = userManager;
             _signInManager = signInManager;
             _webHostEnvironment = webhost;
+            _context = context;
         }
 
         public string Username { get; set; }
@@ -79,7 +81,7 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(IFormFile imageFile, UserImage userImage) 
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -120,13 +122,102 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
 
                                 await _userManager.UpdateAsync(user);*/
 
+
+                //get the extension of the user uploaded file
+                string ext = Path.GetExtension(imageFile.FileName);
+                //var id = userIDC;
+
+                //jpg, jpeg, png, gif allowed
+                if (ext == ".jpg" || ext == ".png" || ext == ".jpeg" || ext == ".jif") {
+
+                    //Create a new path (in root folder) for the new user if folder does not exist
+
+                    //folder in wwwroor/unver_imgs
+                    var folderName = Path.Combine(_webHostEnvironment.WebRootPath, "unver_images");
+
+                    //combine folder name to user_IDX_ and then create directory if it doesnt exist
+                    var pathString = Path.Combine(folderName, "user_" + user.Id.Substring(0,5) + "X_");
+
+                    if (!Directory.Exists(pathString)) {
+                        Directory.CreateDirectory(pathString);
+                    }
+
+                    //save file in user folder name and save in root with new name.
+                    var saveimg = Path.Combine(pathString, imageFile.FileName);
+
+                    using (var uploadingimg = new FileStream(saveimg, FileMode.Create)) {
+                        await imageFile.CopyToAsync(uploadingimg);
+
+                        userImage.imageName = imageFile.Name.ToString();
+                        userImage.imagePath = saveimg;
+                        //userImage.userID = 1;
+
+                        await _context.UserFiles.AddAsync(userImage);
+                        await _context.SaveChangesAsync();
+                        ViewData["Message"] = "The Selected File " + imageFile.FileName + " has been saved ";
+                    }
+                }
+
+                else {
+                    ViewData["Message"] = "The Selected File " + imageFile.FileName + " did not save. Check the image file type (only JPG, JPEG, GIF, PNG allowed  ";
+                }
+
             }
+
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
         }
 
-        
+/*        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //[ActionName("Imgupload")]
+        public async Task<IActionResult> Imgupload(IFormFile imageFile, UserImage userImage) {
+
+            //get the extension of the user uploaded file
+            string ext = Path.GetExtension(imageFile.FileName);
+            var id = userIDC;
+
+            //jpg, jpeg, png, gif allowed
+            if (ext == ".jpg" || ext == ".png" || ext == ".jpeg" || ext == ".jif") {
+
+                //Create a new path (in root folder) for the new user if folder does not exist
+
+                //folder in wwwroor/unver_imgs
+                var folderName = Path.Combine(_webHostEnvironment.WebRootPath, "unver_images");
+
+                //combine folder name to user_IDX_ and then create directory if it doesnt exist
+                var pathString = Path.Combine(folderName, "user_" + id + "X_");
+
+                if (!Directory.Exists(pathString)) {
+                    Directory.CreateDirectory(pathString);
+                }
+
+                //save file in user folder name and save in root with new name.
+                var saveimg = Path.Combine(pathString, imageFile.FileName);
+
+                using (var uploadingimg = new FileStream(saveimg, FileMode.Create)) {
+                    await imageFile.CopyToAsync(uploadingimg);
+
+                    userImage.imageName = imageFile.Name.ToString();
+                    userImage.imagePath = saveimg;
+                    userImage.userID = 1;
+
+                    await _context.UserFiles.AddAsync(userImage);
+                    await _context.SaveChangesAsync();
+                    ViewData["Message"] = "The Selected File " + imageFile.FileName + " has been saved ";
+                }
+            }
+
+            else {
+                ViewData["Message"] = "The Selected File " + imageFile.FileName + " did not save. Check the image file type (only JPG, JPEG, GIF, PNG allowed  ";
+            }
+
+            return View();
+            //return RedirectToAction(nameof(Index));
+        }*/
+
+
     }
 }
