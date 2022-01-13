@@ -19,16 +19,25 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.DTO.NewRegDTO", b =>
                 {
-                    b.Property<string>("id")
+                    b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("name")
+                    b.Property<string>("email")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("firstName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("lastName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("profilePic")
                         .HasColumnType("longtext");
 
                     b.Property<string>("userName")
                         .HasColumnType("longtext");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("NewReg");
                 });
@@ -118,10 +127,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     b.Property<string>("imagePath")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("userID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("userName")
+                    b.Property<string>("userID")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");

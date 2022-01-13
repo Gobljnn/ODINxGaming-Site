@@ -180,7 +180,7 @@ namespace OdinXSiteMVC2.Controllers
 
                     userImage.imageName = imageFile.Name.ToString();
                     userImage.imagePath = saveimg;
-                    userImage.userID = 1;
+                    //userImage.userID = 1;
 
                     await _context.UserFiles.AddAsync(userImage);
                     await _context.SaveChangesAsync();

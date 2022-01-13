@@ -217,9 +217,6 @@ namespace OdinXSiteMVC2.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<byte[]>("profilePic")
-                        .HasColumnType("varbinary(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")

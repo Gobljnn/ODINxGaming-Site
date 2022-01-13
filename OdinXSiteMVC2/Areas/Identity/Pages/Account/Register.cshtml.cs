@@ -97,7 +97,9 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
 
                 //create entities for db insertion
                 var user = new ApplicationUser { UserName = Input.userName, Email = Input.Email, firstName=Input.firstName, lastName=Input.lastName };
-                var newreg = new NewRegDTO { name = Input.firstName, userName = Input.userName };
+
+                //copy only id, name and username to personal db
+                var newreg = new NewRegDTO { firstName = Input.firstName, userName = Input.userName, lastName=Input.lastName, email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
 
@@ -117,11 +119,11 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
 
 
                     //add Indentity created items to personal db
-                    newreg.id = user.Id;
+                    newreg.Id = user.Id;
+                    newreg.profilePic = "../../Assets/Pic/26293.jpg";
+
                     _context.NewReg.Add(newreg);
                     _context.SaveChanges();
-
-
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

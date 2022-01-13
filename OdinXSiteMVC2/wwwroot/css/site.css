@@ -72,7 +72,7 @@ body {
     margin-bottom: 60px;
     background-size:cover;
     background-position: center center;
-    background-image: url('/Assets/Pic/blackandgold1.jpg');
+    background-image: url('/Assets/Pic/bandg1.jpg');
 }
 .footer {
   position: absolute;
@@ -87,7 +87,8 @@ body {
 
 }
 
-p {
+h1, h2,  p {
     font-family: 'Anton';
-    color:grey;
+    color: #FFC300;
+    letter-spacing: 2px;
 }

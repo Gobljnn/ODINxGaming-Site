@@ -7,7 +7,7 @@ namespace OdinXSiteMVC2.Data {
         public string lastName {get;set;}
         public string bio { get; set; }
 
-        public byte[] profilePic { get; set; }
+        //public string profilePic { get; set; }
 
 
     }
