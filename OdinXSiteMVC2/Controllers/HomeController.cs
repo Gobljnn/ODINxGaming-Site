@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OdinXSiteMVC2.Data;
 using OdinXSiteMVC2.Models;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,7 @@ namespace OdinXSiteMVC2.Controllers {
     public class HomeController : Controller {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger) {
+        public HomeController(ILogger<HomeController> logger, OdinXSiteMVC2Context context, IWebHostEnvironment webhost) {
             _logger = logger;
         }
 
@@ -19,6 +21,10 @@ namespace OdinXSiteMVC2.Controllers {
             return View();
         }
 
+        public async Task<IActionResult> Socials() {
+            return View();
+        
+        }
         public IActionResult Privacy() {
             return View();
         }
