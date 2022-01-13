@@ -33,7 +33,9 @@ namespace OdinXSiteMVC2.Controllers
             return View(await _context.Exec.ToListAsync());
         }
 
-        // GET: Execs/Details/5
+
+
+        // GET: Execs/Details/5 - USED TO SEE SPECIFIC INFO ON EXECS - ADD A MODAL - AT A LATER DATE#GOB
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -51,13 +53,13 @@ namespace OdinXSiteMVC2.Controllers
             return View(exec);
         }
 
-        // GET: Execs/Create
+        // GET: Execs/Create - REMOVE  - AT A LATER DATE#GOB
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Execs/Create
+        // POST: Execs/Create  - AT A LATER DATE#GOB
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -73,7 +75,7 @@ namespace OdinXSiteMVC2.Controllers
             return View(exec);
         }
 
-        // GET: Execs/Edit/5
+        // GET: Execs/Edit/5  - AT A LATER DATE#GOB
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -146,7 +148,7 @@ namespace OdinXSiteMVC2.Controllers
 
 
 
-        //E:\Github_Local_Repo\OdinxSite_Port\OdinXSiteMVC2\wwwroot\unver_images\Goblogo.png
+        //iMAGE UPLOADER -   - AT A LATER DATE#GOB
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -180,7 +182,6 @@ namespace OdinXSiteMVC2.Controllers
 
                     userImage.imageName = imageFile.Name.ToString();
                     userImage.imagePath = saveimg;
-                    //userImage.userID = 1;
 
                     await _context.UserFiles.AddAsync(userImage);
                     await _context.SaveChangesAsync();
@@ -198,7 +199,7 @@ namespace OdinXSiteMVC2.Controllers
 
         /*------------------------
                                 -----------------------------------------------*/
-        // GET: Execs/Delete/5
+        // GET: Execs/Delete/5 - REMOVE   - AT A LATER DATE#GOB
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -216,7 +217,7 @@ namespace OdinXSiteMVC2.Controllers
             return View(exec);
         }
 
-        // POST: Execs/Delete/5
+        // POST: Execs/Delete/5  REMOVE - AT A LATER DATE#GOB
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

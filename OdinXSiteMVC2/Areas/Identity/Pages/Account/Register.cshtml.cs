@@ -122,6 +122,7 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
                     newreg.Id = user.Id;
                     newreg.profilePic = "../../Assets/Pic/26293.jpg";
 
+                    //ADD NEW  USER TO TO PERSONAL DB
                     _context.NewReg.Add(newreg);
                     _context.SaveChanges();
 
@@ -135,6 +136,8 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
+
+                        //GO TO MANAGE PAGE UPON REGISTRATION TO ADD PROFILE PIC AND BIO
                         return Redirect("~/Identity/Account/Manage");
                     }
                 }

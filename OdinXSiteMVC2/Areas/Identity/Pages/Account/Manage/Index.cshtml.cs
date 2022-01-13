@@ -48,9 +48,6 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
             [MaxLength(300)]
             [Display(Name = "Bio")]
             public string Bio { get; set; }
-            //[Display(Name = "Profile Picture")]
-            //public string ProfilePic { get; set; }
-
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -58,39 +55,42 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var bio = user.bio;
-            //var profilePic = user.profilePic;
 
             Username = userName;
 
             Input = new InputModel {
                 PhoneNumber = phoneNumber,
                 Bio = bio,
-                //ProfilePic = profilePic
+               
             };
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
-
-            var user = await _userManager.GetUserAsync(User);
-            //var id = await _userManager.GetUserIdAsync()
+            var user = await _userManager.GetUserAsync(User);    
+            
+            //CANNOT FIND USER
             if (user == null) {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+            //IF USER FOUND
+            //CREATE VAR OF USER REPO
             var userrepo = "user_" + user.Id.Substring(0, 5) + "X_";
-            var wwwpath = Path.Combine(_webHostEnvironment.WebRootPath, "unver_images", userrepo,"4.jpg");
+
+            //USING LAMBDA EXPRESSION FIND USER FROM PERSONAL DB THAT HAS THE SAME USER ID AS AUTHENTICATION DB
             NewRegDTO myUser = _context.NewReg
                 .Where(p => p.Id.Equals(user.Id))
                 .Select(imgs => new NewRegDTO {  profilePic = imgs.profilePic})
                 .FirstOrDefault();
-            var def = "../../Assets/Pic/26293.jpg";
-            var path = "../../unver_images/";
-            var userpic = path + "user_" + user.Id.Substring(0, 5) + "X_/4.jpg";
 
+            //DEFAULT PATH FOR DEFAULT PROFILE PIC
+            var def = "../../Assets/Pic/26293.jpg";
+
+            //PATH FOR PERSONAL PROFILE PIC
             if (myUser.profilePic.Equals(def)) {
                 
-                ViewData["ID"] = "../../Assets/Pic/26293.jpg";
+                ViewData["ID"] = def;
             }
             else {
                 ViewData["ID"] = myUser.profilePic;
@@ -100,17 +100,21 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(IFormFile imageFile, UserImage userImage, NewRegDTO newReg) {
+        public async Task<IActionResult> OnPostAsync(IFormFile imageFile, UserImage userImage) {
             var user = await _userManager.GetUserAsync(User);
+
+            //FIND USER IN PERSONAL DB THAT MATCHES AUTHEN ID
             var myUser = _context.NewReg
                 .Where(p => p.Id == user.Id)
                 .FirstOrDefault();
 
+            //CANNOT FIND USER
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+            //IF ALL INPUTS ARE FINE
             if (!ModelState.IsValid)
             {
                 await LoadAsync(user);
@@ -136,7 +140,8 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
 
             await _userManager.UpdateAsync(user);
 
-            //to save pic to db
+
+            //IF YOU WANT TO SAVE PIC DIRECTLY TO DB - LAST RESORT - REMOVE  - AT A LATER DATE#GOB
             /*                IFormFile file = Request.Form.Files.FirstOrDefault();
                             using (var dataStream = new MemoryStream()) {
                                 await file.CopyToAsync(dataStream);
@@ -145,17 +150,17 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
 
                             await _userManager.UpdateAsync(user);*/
 
+            //AS LONG AS EMAIL ISN'T BLANK
             if (imageFile != null) {
+
                 //get the extension of the user uploaded file
                 string ext = Path.GetExtension(imageFile.FileName);
                 var id = "user_" + user.Id.Substring(0, 5) + "X_";
-
 
                 //jpg, jpeg, png, gif allowed
                 if (ext == ".jpg" || ext == ".png" || ext == ".jpeg" || ext == ".jif") {
 
                     //Create a new path (in root folder) for the new user if folder does not exist
-
                     //folder in wwwroor/unver_imgs
                     var folderName = Path.Combine(_webHostEnvironment.WebRootPath, "unver_images");
 
@@ -172,19 +177,26 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
                     //create the file
                     using (var uploadingimg = new FileStream(saveimg, FileMode.Create)) {
                         await imageFile.CopyToAsync(uploadingimg);
+
+                        //UPDATE VIEW ID FOR PROFILE PIC CHANGE IN HTML
                         ViewData["ID"] = saveimg;
 
-
                         // name and path of file respectively put into personal db
+                        //USERIMAGE IS BRIDGE FILE SAVE -
                         userImage.imageName = "Profile Pic";
+
+                        //SAVE NEW PATH
                         userImage.imagePath = saveimg;
+                        
+                        //CHANGE PROFILE PIC SOURCE IN PERSONAL DB
                         myUser.profilePic = "../../unver_images/" + id + "/ProfilePhoto" + ext;
-                        //await _context.UpdateAsync(myUser);
+
+                        //USER ID - REMOVE  - AT A LATER DATE#GOB
                         userImage.userID = user.Id.Substring(0, 5);
 
-                        //    add and db save
+                        // add and db save
                         await _context.UserFiles.AddAsync(userImage);
-                        //await _context.NewReg.AddAsync(newReg)
+                        
 
                         await _context.SaveChangesAsync();
                         ViewData["Message"] = "The Selected File " + imageFile.FileName + " has been saved ";
