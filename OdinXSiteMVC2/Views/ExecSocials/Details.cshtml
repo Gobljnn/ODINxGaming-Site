@@ -1,0 +1,79 @@
+﻿@model OdinXSiteMVC2.Models.Socials.ExecSocial
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ExecSocial</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.execId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.execId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.execName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.execName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.discordName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.discordName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.discordLink)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.discordLink)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ttvlink)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ttvlink)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.instaLink)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.instaLink)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.twitLink)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.twitLink)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tiktokLink)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tiktokLink)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.scLink)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.scLink)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.live)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.live)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.socialID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,76 @@
+﻿@model OdinXSiteMVC2.Models.Socials.ExecSocial
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>ExecSocial</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="execId" class="control-label"></label>
+                <input asp-for="execId" class="form-control" />
+                <span asp-validation-for="execId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="execName" class="control-label"></label>
+                <input asp-for="execName" class="form-control" />
+                <span asp-validation-for="execName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="discordName" class="control-label"></label>
+                <input asp-for="discordName" class="form-control" />
+                <span asp-validation-for="discordName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="discordLink" class="control-label"></label>
+                <input asp-for="discordLink" class="form-control" />
+                <span asp-validation-for="discordLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ttvlink" class="control-label"></label>
+                <input asp-for="ttvlink" class="form-control" />
+                <span asp-validation-for="ttvlink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="instaLink" class="control-label"></label>
+                <input asp-for="instaLink" class="form-control" />
+                <span asp-validation-for="instaLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="twitLink" class="control-label"></label>
+                <input asp-for="twitLink" class="form-control" />
+                <span asp-validation-for="twitLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tiktokLink" class="control-label"></label>
+                <input asp-for="tiktokLink" class="form-control" />
+                <span asp-validation-for="tiktokLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="scLink" class="control-label"></label>
+                <input asp-for="scLink" class="form-control" />
+                <span asp-validation-for="scLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="live" class="control-label"></label>
+                <input asp-for="live" class="form-control" />
+                <span asp-validation-for="live" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OdinXSiteMVC2.Models;
+using OdinXSiteMVC2.Models.Socials;
 
 namespace OdinXSiteMVC2.Data
 {
@@ -18,6 +19,8 @@ namespace OdinXSiteMVC2.Data
         public DbSet<OdinXSiteMVC2.Models.UserImage> UserFiles { get; set; }
 
         public DbSet<OdinXSiteMVC2.Models.DTO.NewRegDTO> NewReg { get; set; }
+
+        public DbSet<ExecSocial> ExecSocials { get; set; }
         //Mockdata is below
         //add-migration -context OdinXSiteMVC2Context
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
@@ -62,5 +65,8 @@ namespace OdinXSiteMVC2.Data
             );
 
         }
+        //Mockdata is below
+        //add-migration -context OdinXSiteMVC2Context
+        public DbSet<OdinXSiteMVC2.Models.Socials.ExecSocial> ExecSocial { get; set; }
     }
 }

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<OdinXSiteMVC2.Models.Socials.ExecSocial>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Socials</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+                @Html.DisplayNameFor(model => model.execId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.execName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.discordName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.discordLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ttvlink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.instaLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.twitLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tiktokLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.scLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.live)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.execId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.execName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.discordName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.discordLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ttvlink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.instaLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.twitLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tiktokLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.scLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.live)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.socialID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.socialID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.socialID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

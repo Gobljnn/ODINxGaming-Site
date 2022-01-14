@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace OdinXSiteMVC2.Models.Socials {
     public class ExecSocial {
 
-
+        [Key]
         public int socialID { get; set; }
 
         public string execId { get; set; }

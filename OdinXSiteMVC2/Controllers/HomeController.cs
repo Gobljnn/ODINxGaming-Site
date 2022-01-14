@@ -21,9 +21,9 @@ namespace OdinXSiteMVC2.Controllers {
             return View();
         }
 
-        public async Task<IActionResult> Socials() {
-            return View();
-        
+        public IActionResult Socials() {
+            return View("../ExecSocials/Index");
+
         }
         public IActionResult Privacy() {
             return View();

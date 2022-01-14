@@ -29,5 +29,6 @@ namespace OdinXSiteMVC2.Models {
         //public DateTime lastLogin { get; set; }
 
         public string execPic { get; set; }
+        //public string bio { get; set; }
     }
 }
