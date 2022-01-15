@@ -50,6 +50,37 @@ namespace OdinXSiteMVC2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "NewRegDTO",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    firstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    lastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    userName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    profilePic = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    gamerTag = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    role = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    roleId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NewRegDTO", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    roleID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    roleName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.roleID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -211,6 +242,12 @@ namespace OdinXSiteMVC2.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "NewRegDTO");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

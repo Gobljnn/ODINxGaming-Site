@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +16,7 @@ using OdinXSiteMVC2.Models.DTO;
 
 namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
 {
+    
     public partial class IndexModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;

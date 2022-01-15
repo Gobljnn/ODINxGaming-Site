@@ -16,31 +16,38 @@ using Microsoft.Extensions.Logging;
 using OdinXSiteMVC2.Data;
 using OdinXSiteMVC2.Models;
 using OdinXSiteMVC2.Models.DTO;
+using OdinXSiteMVC2.Models.Roles;
 
 namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
+    //[Authorize(Roles = "Plebs")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly OdinXSiteMVC2Context _context;
+        private readonly OdinXSiteMVC2Context _mySqlDb;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            OdinXSiteMVC2Context context)
+            OdinXSiteMVC2Context context,
+            RoleManager<IdentityRole> roleManager
+            )
+            
             
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _context = context;
+            _mySqlDb = context;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -84,6 +91,7 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            ViewData["roles"] = _roleManager.Roles.ToList();
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -97,11 +105,17 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
 
                 //create entities for db insertion
                 var user = new ApplicationUser { UserName = Input.userName, Email = Input.Email, firstName=Input.firstName, lastName=Input.lastName };
+                
 
                 //copy only id, name and username to personal db
-                var newreg = new NewRegDTO { firstName = Input.firstName, userName = Input.userName, lastName=Input.lastName, email = Input.Email };
+                var newreg = new NewRegDTO {
+                    firstName = Input.firstName,
+                    userName = Input.userName,
+                    lastName = Input.lastName,
+                    email = Input.Email,
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
-
+                
 
                 if (result.Succeeded)
                 {
@@ -117,14 +131,33 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
+                    
 
                     //add Indentity created items to personal db
                     newreg.Id = user.Id;
                     newreg.profilePic = "../../Assets/Pic/26293.jpg";
 
+
+
+                    //ADD NEW USER TO A SPECIFIC ROLE
+                    _userManager.AddToRoleAsync(user, "Plebs").Wait();
+
+                    //capture id and role name in  new entity
+                    //FIND PLEBS ID
+                    Roles newRole = _roleManager.Roles
+                    .Where(p => p.Name.Equals("Plebs"))
+                    .Select(rid => new Roles { roleID = rid.Id })
+                    .FirstOrDefault();
+
+                    //ADD NEW DATA TO NEWREGDTO
+                    newreg.role = "Plebs";
+                    newreg.roleId = newRole.roleID;
+
+
                     //ADD NEW  USER TO TO PERSONAL DB
-                    _context.NewReg.Add(newreg);
-                    _context.SaveChanges();
+                    _mySqlDb.NewReg.Add(newreg);
+                    
+                    _mySqlDb.SaveChanges();
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

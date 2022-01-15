@@ -5,6 +5,8 @@ using OdinXSiteMVC2.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using OdinXSiteMVC2.Models.Roles;
+using OdinXSiteMVC2.Models.DTO;
 
 namespace OdinXSiteMVC2.Data {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
@@ -25,6 +27,10 @@ namespace OdinXSiteMVC2.Data {
                 .HasMaxLength(250);
 
         }
+
+        public DbSet<OdinXSiteMVC2.Models.Roles.Roles> Roles { get; set; }
+
+        public DbSet<OdinXSiteMVC2.Models.DTO.NewRegDTO> NewRegDTO { get; set; }
 
         //Mockdata is below
         //add-migration -context OdinXSiteMVC2Context

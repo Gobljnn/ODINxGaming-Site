@@ -230,6 +230,53 @@ namespace OdinXSiteMVC2.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("OdinXSiteMVC2.Models.DTO.NewRegDTO", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("firstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("gamerTag")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("profilePic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("roleId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NewRegDTO");
+                });
+
+            modelBuilder.Entity("OdinXSiteMVC2.Models.Roles.Roles", b =>
+                {
+                    b.Property<string>("roleID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("roleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("roleID");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)

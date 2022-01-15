@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,15 +14,17 @@ using OdinXSiteMVC2.Models;
 
 namespace OdinXSiteMVC2.Controllers
 {
+    //[Authorize(Roles = "Exec")]
     public class ExecsController : Controller
     {
-        private readonly OdinXSiteMVC2Context _context;
+        
+        private readonly OdinXSiteMVC2Context _mySqlDb;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
         protected int userIDC;
         public ExecsController(OdinXSiteMVC2Context context, IWebHostEnvironment webhost)
         {
-            _context = context;
+            _mySqlDb = context;
             _webHostEnvironment = webhost;
 
         }
@@ -30,7 +33,7 @@ namespace OdinXSiteMVC2.Controllers
         // GET: Execs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Exec.ToListAsync());
+            return View(await _mySqlDb.Exec.ToListAsync());
         }
 
 
@@ -43,7 +46,7 @@ namespace OdinXSiteMVC2.Controllers
                 return NotFound();
             }
 
-            var exec = await _context.Exec
+            var exec = await _mySqlDb.Exec
                 .FirstOrDefaultAsync(m => m.execID == id);
             if (exec == null)
             {
@@ -68,8 +71,8 @@ namespace OdinXSiteMVC2.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(exec);
-                await _context.SaveChangesAsync();
+                _mySqlDb.Add(exec);
+                await _mySqlDb.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(exec);
@@ -83,7 +86,7 @@ namespace OdinXSiteMVC2.Controllers
                 return NotFound();
             }
 
-            var exec = await _context.Exec.FindAsync(id);
+            var exec = await _mySqlDb.Exec.FindAsync(id);
             if (exec == null)
             {
                 return NotFound();
@@ -110,8 +113,8 @@ namespace OdinXSiteMVC2.Controllers
                 
                 try
                 {
-                    _context.Update(exec);
-                    await _context.SaveChangesAsync();
+                    _mySqlDb.Update(exec);
+                    await _mySqlDb.SaveChangesAsync();
 
                 }
                 catch (DbUpdateConcurrencyException)
@@ -139,7 +142,7 @@ namespace OdinXSiteMVC2.Controllers
                 return NotFound();
             }
 
-            var exec = await _context.Exec.FindAsync(id);
+            var exec = await _mySqlDb.Exec.FindAsync(id);
             if (exec == null) {
                 return NotFound();
             }
@@ -183,8 +186,8 @@ namespace OdinXSiteMVC2.Controllers
                     userImage.imageName = imageFile.Name.ToString();
                     userImage.imagePath = saveimg;
 
-                    await _context.UserFiles.AddAsync(userImage);
-                    await _context.SaveChangesAsync();
+                    await _mySqlDb.UserFiles.AddAsync(userImage);
+                    await _mySqlDb.SaveChangesAsync();
                     ViewData["Message"] = "The Selected File " + imageFile.FileName + " has been saved ";
                 }
             }
@@ -207,7 +210,7 @@ namespace OdinXSiteMVC2.Controllers
                 return NotFound();
             }
 
-            var exec = await _context.Exec
+            var exec = await _mySqlDb.Exec
                 .FirstOrDefaultAsync(m => m.execID == id);
             if (exec == null)
             {
@@ -222,15 +225,15 @@ namespace OdinXSiteMVC2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var exec = await _context.Exec.FindAsync(id);
-            _context.Exec.Remove(exec);
-            await _context.SaveChangesAsync();
+            var exec = await _mySqlDb.Exec.FindAsync(id);
+            _mySqlDb.Exec.Remove(exec);
+            await _mySqlDb.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ExecExists(int id)
         {
-            return _context.Exec.Any(e => e.execID == id);
+            return _mySqlDb.Exec.Any(e => e.execID == id);
         }
     }
 }

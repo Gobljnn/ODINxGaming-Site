@@ -17,6 +17,15 @@ namespace OdinXSiteMVC2.Models.DTO {
         public string email { get; set; }
 
         public string profilePic { get; set; }
+
+        public string gamerTag { get; set; }
+
+        public string role { get; set; }
+
+        public string roleId { get; set; }
+        
+
+
         //public string bio { get; set; }
 
 

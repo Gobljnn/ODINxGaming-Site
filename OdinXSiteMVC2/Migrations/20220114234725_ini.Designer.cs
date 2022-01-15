@@ -10,7 +10,7 @@ using OdinXSiteMVC2.Data;
 namespace OdinXSiteMVC2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220113203646_ini")]
+    [Migration("20220114234725_ini")]
     partial class ini
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -230,6 +230,53 @@ namespace OdinXSiteMVC2.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("OdinXSiteMVC2.Models.DTO.NewRegDTO", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("firstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("gamerTag")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("profilePic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("roleId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NewRegDTO");
+                });
+
+            modelBuilder.Entity("OdinXSiteMVC2.Models.Roles.Roles", b =>
+                {
+                    b.Property<string>("roleID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("roleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("roleID");
+
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

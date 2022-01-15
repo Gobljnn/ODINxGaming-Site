@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+//using Microsoft.AspNetCore.Identity.IdentityBuilder;
 
 namespace OdinXSiteMVC2 {
     public class Startup {
@@ -24,18 +25,25 @@ namespace OdinXSiteMVC2 {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            ////////////////////////////////////////////////////////Authorization DB
+            //Autho - User
+
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddControllersWithViews();
+            //Roles
+
+
+
+            // Authorization DB
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection"))
                 );
             services.AddDatabaseDeveloperPageExceptionFilter();
-            //////////////////////////////////////////////////////Autho - User
+            
 
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();
-            /////////////////////////////////////////////////////// User Profile info // MSSMS
+            // User Profile info with MSSMS
 
             //services.AddDbContext<OdinXSiteMVC2Context>(options =>
             //    options.UseSqlServer(
@@ -43,8 +51,9 @@ namespace OdinXSiteMVC2 {
             //);
             //services.AddRazorPages();
 
-            /////////////////////////////////////////////////////// MySql
+            // User Profile info with MySql
             var cs = Configuration.GetConnectionString("OdinXSiteMVC2Context");
+
             //get server version (can get either dynamically or manually from the actual server - this is gotten dynamically)
             var sv = ServerVersion.AutoDetect(cs);
 
@@ -53,8 +62,7 @@ namespace OdinXSiteMVC2 {
                 options.UseMySql(cs, sv)
             );
             services.AddRazorPages();
-            ///////////////////////////////////////////////////////
-
+            
             services.Configure<IdentityOptions>(options => {
 
                 // Password settings.
@@ -110,7 +118,7 @@ namespace OdinXSiteMVC2 {
             app.UseRouting();
 
             app.UseAuthentication(); //for register log in
-            app.UseAuthorization();
+            app.UseAuthorization(); //for authorization in pages
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(

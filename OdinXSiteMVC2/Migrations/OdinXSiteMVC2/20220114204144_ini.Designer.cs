@@ -9,8 +9,8 @@ using OdinXSiteMVC2.Data;
 namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 {
     [DbContext(typeof(OdinXSiteMVC2Context))]
-    [Migration("20220114000245_socialsini")]
-    partial class socialsini
+    [Migration("20220114204144_ini")]
+    partial class ini
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -115,6 +115,32 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                             favGame = "League",
                             username = "Fishboy8383"
                         });
+                });
+
+            modelBuilder.Entity("OdinXSiteMVC2.Models.Roles.Roles", b =>
+                {
+                    b.Property<int>("roleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("firstName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("gamerTag")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("lastName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("roleName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("userId")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("roleID");
+
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.Socials.ExecSocial", b =>

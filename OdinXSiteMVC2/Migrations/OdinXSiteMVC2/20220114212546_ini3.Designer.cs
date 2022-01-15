@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OdinXSiteMVC2.Data;
 
 namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 {
     [DbContext(typeof(OdinXSiteMVC2Context))]
-    partial class OdinXSiteMVC2ContextModelSnapshot : ModelSnapshot
+    [Migration("20220114212546_ini3")]
+    partial class ini3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,10 +128,23 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.Roles.Roles", b =>
                 {
-                    b.Property<string>("roleID")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("roleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("firstName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("gamerTag")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("lastName")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("roleName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("userId")
                         .HasColumnType("longtext");
 
                     b.HasKey("roleID");

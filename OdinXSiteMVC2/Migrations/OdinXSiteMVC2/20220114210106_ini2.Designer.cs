@@ -9,8 +9,8 @@ using OdinXSiteMVC2.Data;
 namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 {
     [DbContext(typeof(OdinXSiteMVC2Context))]
-    [Migration("20220113204209_minupdate")]
-    partial class minupdate
+    [Migration("20220114210106_ini2")]
+    partial class ini2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,10 +30,16 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     b.Property<string>("firstName")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("gamerTag")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("lastName")
                         .HasColumnType("longtext");
 
                     b.Property<string>("profilePic")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("role")
                         .HasColumnType("longtext");
 
                     b.Property<string>("userName")
@@ -115,6 +121,73 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                             favGame = "League",
                             username = "Fishboy8383"
                         });
+                });
+
+            modelBuilder.Entity("OdinXSiteMVC2.Models.Roles.Roles", b =>
+                {
+                    b.Property<int>("roleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("firstName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("gamerTag")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("lastName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("roleName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("userId")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("roleID");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("OdinXSiteMVC2.Models.Socials.ExecSocial", b =>
+                {
+                    b.Property<int>("socialID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("discordLink")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("discordName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("execId")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("execName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("instaLink")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("live")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("scLink")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("tiktokLink")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ttvlink")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("twitLink")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("socialID");
+
+                    b.ToTable("ExecSocial");
                 });
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.UserImage", b =>

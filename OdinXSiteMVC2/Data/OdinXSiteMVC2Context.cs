@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OdinXSiteMVC2.Models;
 using OdinXSiteMVC2.Models.Socials;
+using OdinXSiteMVC2.Models.Roles;
 
 namespace OdinXSiteMVC2.Data
 {
@@ -21,8 +22,20 @@ namespace OdinXSiteMVC2.Data
         public DbSet<OdinXSiteMVC2.Models.DTO.NewRegDTO> NewReg { get; set; }
 
         public DbSet<ExecSocial> ExecSocials { get; set; }
+
+        public DbSet<Roles> Roles { get; set; }
+
         //Mockdata is below
         //add-migration -context OdinXSiteMVC2Context
+        public DbSet<OdinXSiteMVC2.Models.Socials.ExecSocial> ExecSocial { get; set; }
+        //Mockdata is below
+        //add-migration -context OdinXSiteMVC2Context
+
+        //Mockdata is below
+        //add-migration -context OdinXSiteMVC2Context
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
 
@@ -64,9 +77,37 @@ namespace OdinXSiteMVC2.Data
                 }
             );
 
+/*            modelBuilder.Entity<Roles>().HasData(
+                new Roles {
+                    roleID = 001,
+                    userId = "exec",
+                    gamerTag = "Gobljnn",
+                    roleName = "Admin",
+                    firstName = "Dammy",
+                    lastName = "Last Name",
+        
+                },
+
+                new Roles {
+                    roleID = 002,
+                    userId = "Member",
+                    gamerTag = "UserX",
+                    roleName = "Plebs",
+                    firstName = "UserXF",
+                    lastName = "Last Name",
+                },
+
+                new Roles {
+                    roleID = 003,
+                    userId = "Unver",
+                    gamerTag = "Dammy",
+                    roleName = "plebs x2",
+                    firstName = "unverF",
+                    lastName = "Last Name",
+                }
+            );*/
+
         }
-        //Mockdata is below
-        //add-migration -context OdinXSiteMVC2Context
-        public DbSet<OdinXSiteMVC2.Models.Socials.ExecSocial> ExecSocial { get; set; }
+        
     }
 }
