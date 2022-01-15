@@ -9,8 +9,8 @@ using OdinXSiteMVC2.Data;
 namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 {
     [DbContext(typeof(OdinXSiteMVC2Context))]
-    [Migration("20220114204144_ini")]
-    partial class ini
+    [Migration("20220115005328_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,10 +30,19 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     b.Property<string>("firstName")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("gamerTag")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("lastName")
                         .HasColumnType("longtext");
 
                     b.Property<string>("profilePic")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("role")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("roleId")
                         .HasColumnType("longtext");
 
                     b.Property<string>("userName")
@@ -119,23 +128,10 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.Roles.Roles", b =>
                 {
-                    b.Property<int>("roleID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("firstName")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("gamerTag")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("lastName")
-                        .HasColumnType("longtext");
+                    b.Property<string>("roleID")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("roleName")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("userId")
                         .HasColumnType("longtext");
 
                     b.HasKey("roleID");

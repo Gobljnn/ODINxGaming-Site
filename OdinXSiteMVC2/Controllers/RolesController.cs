@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OdinXSiteMVC2.Data;
 using OdinXSiteMVC2.Models.Roles;
+using OdinXSiteMVC2.Models.DTO;
 
 namespace OdinXSiteMVC2.Controllers
 {
@@ -38,8 +39,9 @@ namespace OdinXSiteMVC2.Controllers
                 return NotFound();
             }
 
-            var user = await _authDb.Users.FindAsync(id);
-                //.FirstOrDefaultAsync(m => m.roleID == id);
+            var user = await _mySqlDb.NewReg.FirstOrDefaultAsync(m => m.Id == id);
+            //FindAsync(id);
+            //.FirstOrDefaultAsync(m => m.roleID == id);
             if (user == null)
             {
                 return NotFound();
@@ -95,12 +97,12 @@ namespace OdinXSiteMVC2.Controllers
                 return NotFound();
             }
 
-            var roles = await _authDb.Roles.FindAsync(id);
-            if (roles == null)
+            var user = await _mySqlDb.NewReg.FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
             {
                 return NotFound();
             }
-            return View(roles);
+            return View(user);
         }
 
         // POST: Roles/Edit/5
@@ -145,15 +147,15 @@ namespace OdinXSiteMVC2.Controllers
             {
                 return NotFound();
             }
-
-            var roles = await _authDb.Roles
-                .FirstOrDefaultAsync(m => m.roleID == id);
-            if (roles == null)
+            
+            var user = await _authDb.Users
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(roles);
+            return View(user);
         }
 
         // POST: Roles/Delete/5
@@ -161,8 +163,8 @@ namespace OdinXSiteMVC2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var roles = await _authDb.Roles.FindAsync(id);
-            _authDb.Roles.Remove(roles);
+            var user = await _authDb.Users.FindAsync(id);
+            _authDb.Users.Remove(user);
             await _authDb.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
