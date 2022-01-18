@@ -93,6 +93,13 @@ h1, h2,  p {
     letter-spacing: 2px;
 }
 
+/*My CSS*/
+
+img#execpics{
+    width: 250px;
+    height: 250px;
+}
+
 
 /*Modal Button*/
 /* defaults */

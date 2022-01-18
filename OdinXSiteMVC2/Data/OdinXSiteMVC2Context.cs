@@ -17,11 +17,12 @@ namespace OdinXSiteMVC2.Data
         }
 
         public DbSet<OdinXSiteMVC2.Models.Exec> Exec { get; set; } //model the centext is based on\
-        public DbSet<OdinXSiteMVC2.Models.UserImage> UserFiles { get; set; }
+        
 
         public DbSet<OdinXSiteMVC2.Models.DTO.NewRegDTO> NewReg { get; set; }
 
         public DbSet<ExecSocial> ExecSocials { get; set; }
+        public DbSet<OdinXSiteMVC2.Models.UserImage> UserFiles { get; set; }
 
         public DbSet<Role> Roles { get; set; }
 

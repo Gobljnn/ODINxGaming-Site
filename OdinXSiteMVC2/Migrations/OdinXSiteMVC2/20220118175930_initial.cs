@@ -32,6 +32,8 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     loginAmt = table.Column<int>(type: "int", nullable: true),
                     execPic = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    bio = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -95,31 +97,6 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "UserFiles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    userID = table.Column<string>(type: "varchar(255)", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    imageName = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    imagePath = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserFiles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserFiles_Exec_userID",
-                        column: x => x.userID,
-                        principalTable: "Exec",
-                        principalColumn: "execID",
-                        onDelete: ReferentialAction.Restrict);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "NewReg",
                 columns: table => new
                 {
@@ -154,20 +131,45 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.InsertData(
-                table: "Exec",
-                columns: new[] { "execID", "execFirstName", "execGamingTag", "execHierarchy", "execLastName", "execPic", "execTitle", "favGame", "loginAmt", "username" },
-                values: new object[] { "001", "Dammy", "Gobljnn", "Founding", "Adebayo", null, "Programmer", "OW", null, "Gobljnn" });
+            migrationBuilder.CreateTable(
+                name: "UserFiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    userID = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    imageName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    imagePath = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserFiles_NewReg_userID",
+                        column: x => x.userID,
+                        principalTable: "NewReg",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.InsertData(
                 table: "Exec",
-                columns: new[] { "execID", "execFirstName", "execGamingTag", "execHierarchy", "execLastName", "execPic", "execTitle", "favGame", "loginAmt", "username" },
-                values: new object[] { "002", "Kitan", "Kitan3000", "Founding", "Adebowale", null, "Photographer", "COD", null, "Kitan3000" });
+                columns: new[] { "execID", "bio", "execFirstName", "execGamingTag", "execHierarchy", "execLastName", "execPic", "execTitle", "favGame", "loginAmt", "username" },
+                values: new object[] { "001", " Oluwadamilola Gobljnn Adebayo (Dammy), a chemical engineer, one of the co-founders of ODINxGAMING goes by the gamer His favourite genre to play is FPS, which includes a shit - ton of Overwatch and Call of Duty.He also dabbles in a bit of Rocket League buthe dog water.Gobljnn is ODINxGaming's Lead Developer and UI Support member.", "Dammy", "Gobljnn", "Founding", "Adebayo", null, "Programmer", "OW", null, "Gobljnn" });
 
             migrationBuilder.InsertData(
                 table: "Exec",
-                columns: new[] { "execID", "execFirstName", "execGamingTag", "execHierarchy", "execLastName", "execPic", "execTitle", "favGame", "loginAmt", "username" },
-                values: new object[] { "003", "Nathan", "Fishboy8383", "Founding", "Stayer", null, "Community Manager", "League", null, "Fishboy8383" });
+                columns: new[] { "execID", "bio", "execFirstName", "execGamingTag", "execHierarchy", "execLastName", "execPic", "execTitle", "favGame", "loginAmt", "username" },
+                values: new object[] { "002", null, "Kitan", "Kitan3000", "Founding", "Adebowale", null, "Photographer", "COD", null, "Kitan3000" });
+
+            migrationBuilder.InsertData(
+                table: "Exec",
+                columns: new[] { "execID", "bio", "execFirstName", "execGamingTag", "execHierarchy", "execLastName", "execPic", "execTitle", "favGame", "loginAmt", "username" },
+                values: new object[] { "003", null, "Nathan", "Fishboy8383", "Founding", "Stayer", null, "Community Manager", "League", null, "Fishboy8383" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExecSocial_execId",
@@ -191,16 +193,16 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                 name: "ExecSocial");
 
             migrationBuilder.DropTable(
-                name: "NewReg");
-
-            migrationBuilder.DropTable(
                 name: "UserFiles");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Exec");
 
             migrationBuilder.DropTable(
-                name: "Exec");
+                name: "NewReg");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }

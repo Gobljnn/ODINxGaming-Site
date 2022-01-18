@@ -918,20 +918,22 @@ select.form-control:focus::-ms-value {
 /*    transform: translateY(20px);*/
 }
 .modal-open .modal {
-    overflow-x: hidden;
-    overflow-y: auto
+    overflow-x: auto;
+    display: flex;
+/*    overflow-y: auto*/
 }
 .modal {
     position: fixed;
-    top: 50%;
+    top: 10vh;
     left: 0%;
 /*    right: 50%;*/
     z-index: 1050;
     display: none;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
     outline: 0;
+    overflow-y: auto;
 /*    width: 100px;*/
 }
 .modal-dialog {
@@ -939,8 +941,9 @@ select.form-control:focus::-ms-value {
     width: auto;
     margin: .5rem;
     pointer-events: none;
-    
+    overflow-y: initial !important;
 }
+
 .modal.fade .modal-dialog {
     transition: -webkit-transform .3s ease-out;
     transition: transform .3s ease-out;
@@ -959,22 +962,27 @@ select.form-control:focus::-ms-value {
     transform: none;
     opacity: 1;
     transition: all 300ms ease-in-out;
+    
 }
 .modal-dialog-scrollable {
     display: -ms-flexbox;
     display: flex;
-    max-height: calc(100% - 1rem)
+    max-height: calc(100% - 1rem);
+/*    overflow-y:auto;*/
 }
 .modal-dialog-scrollable .modal-content {
     max-height: calc(100vh - 1rem);
-    overflow: hidden
+    height: 360px;
+    /*overflow: auto;*/ /*for scrolling*/
+    
 }
 .modal-dialog-scrollable .modal-footer, .modal-dialog-scrollable .modal-header {
     -ms-flex-negative: 0;
     flex-shrink: 0
 }
 .modal-dialog-scrollable .modal-body {
-    overflow-y: auto
+    overflow-y: auto; /*try*/
+    display: flex;
 }
 .modal-dialog-centered {
     display: -ms-flexbox;
@@ -995,30 +1003,25 @@ select.form-control:focus::-ms-value {
     justify-content: center;
     height: 100%
 }
+.content-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
 .modal-dialog-centered.modal-dialog-scrollable .modal-content {
     max-height: none
 }
 .modal-dialog-centered.modal-dialog-scrollable::before {
     content: none
 }
+
+.modal-wrap{
+    display: flex;
+}
 .modal-content {
-/*    position: relative;*/
-/*    display: -ms-flexbox;*/
-/*    display: flex;*/
-/*    -ms-flex-direction: column;*/
-/*    flex-direction: column;*/
-/*    width: 100%;*/
-/*    pointer-events: auto;*/
     background-color: #fff;
-/*    background-clip: padding-box;*/
-/*    border: 1px solid rgba(0,0,0,.2);*/
-/*    border-radius: .3rem;*/
-/*    outline: 0;*/
-    /*    background-color: black;*/
     position: relative;
-/*    display: block;*/
     width: 100%;
-   height: 300px;
+    height: 100%;
     max-width: 900px;
     max-height: 900px;
     margin: 0 auto;
@@ -1031,18 +1034,17 @@ select.form-control:focus::-ms-value {
     -ms-flex-item-align: center;
     align-self: center;
     box-shadow: 0 12px 25px 0 rgba(199,175,189,.25);
-/*    opacity: 0;*/
-/*    transform: scale(0.6);*/
     transition: opacity 250ms 250ms ease, transform 300ms 250ms ease;
 }
 .modal-backdrop {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1040;
+    z-index: 1049;
     width: 100vw;
     height: 100vh;
-    background-color: #000
+    background-color: #000;
+    overflow-y: auto;
 }
 .modal-backdrop.fade {
     opacity: 0
@@ -1074,7 +1076,9 @@ select.form-control:focus::-ms-value {
     position: relative;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
-    padding: 1rem
+    padding: 1rem;
+    height: 400px;
+    display: flex;
 }
 .modal-footer {
     display: -ms-flexbox;
@@ -1101,10 +1105,14 @@ select.form-control:focus::-ms-value {
     height: 50px;
     overflow: scroll
 }
-@media  (min-width:576px) {
+@media  (min-width:576px) { /*576 or greater*/
     .modal-dialog {
         max-width: 500px;
         margin: 1.75rem auto
+    }
+
+    .content-container {
+        flex-wrap: nowrap;
     }
 
     .modal-dialog-scrollable {
@@ -1125,6 +1133,16 @@ select.form-control:focus::-ms-value {
 
     .modal-sm {
         max-width: 300px
+    }
+}
+
+@media (max-width: 575px){ /*575 or less*/
+    .content-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .modal-dialog-scrollable .modal-content {
+        height: 480px;
     }
 }
 @media (min-width:992px) {

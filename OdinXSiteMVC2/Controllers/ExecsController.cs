@@ -33,6 +33,7 @@ namespace OdinXSiteMVC2.Controllers
         // GET: Execs
         public async Task<IActionResult> Index()
         {
+            //ViewData["Exec"] = "69";
             return View(await _mySqlDb.Exec.ToListAsync());
         }
 
@@ -55,10 +56,15 @@ namespace OdinXSiteMVC2.Controllers
             return info;
         }
 
-        public IEnumerable<string> bio(string? id) {
+        public IEnumerable<string> Img(string? id) {
+
+            //Path of Exec Pic will be found here through lambda - use in img source in index of exec.
+            ViewData["Exec"] = id;
+
+
             var info = _mySqlDb.Exec
                 .Where(p => p.execID == id)
-                .Select(p => p.bio);
+                .Select(p => p.execPic);
             //.ToList(); use this and you can change IEmunarable (which is more flexible) to List<string>
 
             if (info == null || info.Count() == 0) {

@@ -19,17 +19,17 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
     
     public partial class IndexModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> _authDb;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly OdinXSiteMVC2Context _context;
+        private readonly OdinXSiteMVC2Context _mySqlDb;
 
         public IndexModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
                         IWebHostEnvironment webhost,OdinXSiteMVC2Context context){
-            _userManager = userManager;
+            _authDb = userManager;
             _signInManager = signInManager;
             _webHostEnvironment = webhost;
-            _context = context;
+            _mySqlDb = context;
         }
 
         public string Username { get; set; }
@@ -54,8 +54,8 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
 
         private async Task LoadAsync(ApplicationUser user)
         {
-            var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var userName = await _authDb.GetUserNameAsync(user);
+            var phoneNumber = await _authDb.GetPhoneNumberAsync(user);
             var bio = user.bio;
 
             Username = userName;
@@ -69,11 +69,11 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await _userManager.GetUserAsync(User);    
+            var user = await _authDb.GetUserAsync(User);    
             
             //CANNOT FIND USER
             if (user == null) {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Unable to load user with ID '{_authDb.GetUserId(User)}'.");
             }
 
             //IF USER FOUND
@@ -81,7 +81,7 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
             var userrepo = "user_" + user.Id.Substring(0, 5) + "X_";
 
             //USING LAMBDA EXPRESSION FIND USER FROM PERSONAL DB THAT HAS THE SAME USER ID AS AUTHENTICATION DB
-            NewRegDTO myUser = _context.NewReg
+            NewRegDTO myUser = _mySqlDb.NewReg
                 .Where(p => p.Id.Equals(user.Id))
                 .Select(imgs => new NewRegDTO {  profilePic = imgs.profilePic})
                 .FirstOrDefault();
@@ -103,17 +103,17 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
         }
 
         public async Task<IActionResult> OnPostAsync(IFormFile imageFile, UserImage userImage) {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _authDb.GetUserAsync(User);
 
             //FIND USER IN PERSONAL DB THAT MATCHES AUTHEN ID
-            var myUser = _context.NewReg
+            var myUser = _mySqlDb.NewReg
                 .Where(p => p.Id == user.Id)
                 .FirstOrDefault();
 
             //CANNOT FIND USER
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Unable to load user with ID '{_authDb.GetUserId(User)}'.");
             }
 
             //IF ALL INPUTS ARE FINE
@@ -123,10 +123,10 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var phoneNumber = await _authDb.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+                var setPhoneResult = await _authDb.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
                     StatusMessage = "Unexpected error when trying to set phone number.";
@@ -137,10 +137,10 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
             var bio = user.bio;
             if (Input.Bio != bio) {
                 user.bio = Input.Bio;
-                await _userManager.UpdateAsync(user);
+                await _authDb.UpdateAsync(user);
             }
 
-            await _userManager.UpdateAsync(user);
+            await _authDb.UpdateAsync(user);
 
 
             //IF YOU WANT TO SAVE PIC DIRECTLY TO DB - LAST RESORT - REMOVE  - AT A LATER DATE#GOB
@@ -150,7 +150,7 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
                                 user.profilePic = dataStream.ToArray();
                             }
 
-                            await _userManager.UpdateAsync(user);*/
+                            await _authDb.UpdateAsync(user);*/
 
             //AS LONG AS EMAIL ISN'T BLANK
             if (imageFile != null) {
@@ -194,13 +194,14 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
                         myUser.profilePic = "../../unver_images/" + id + "/ProfilePhoto" + ext;
 
                         //USER ID - REMOVE  - AT A LATER DATE#GOB
-                        userImage.userID = user.Id.Substring(0, 5);
+                        //userImage.userID = user.Id.Substring(0, 5);
+                        userImage.userID = user.Id;
 
                         // add and db save
-                        await _context.UserFiles.AddAsync(userImage);
+                        await _mySqlDb.UserFiles.AddAsync(userImage);
                         
 
-                        await _context.SaveChangesAsync();
+                        await _mySqlDb.SaveChangesAsync();
                         ViewData["Message"] = "The Selected File " + imageFile.FileName + " has been saved ";
                     }
                 }

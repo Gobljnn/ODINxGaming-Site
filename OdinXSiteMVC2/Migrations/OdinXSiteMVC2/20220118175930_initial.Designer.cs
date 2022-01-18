@@ -9,8 +9,8 @@ using OdinXSiteMVC2.Data;
 namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 {
     [DbContext(typeof(OdinXSiteMVC2Context))]
-    [Migration("20220118001800_upd")]
-    partial class upd
+    [Migration("20220118175930_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -229,7 +229,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.UserImage", b =>
                 {
-                    b.HasOne("OdinXSiteMVC2.Models.Exec", "Users")
+                    b.HasOne("OdinXSiteMVC2.Models.DTO.NewRegDTO", "Users")
                         .WithMany()
                         .HasForeignKey("userID");
 

@@ -2,8 +2,8 @@
 
 @{
     ViewData["Title"] = "Index";
-    //var pic = ViewData["Exec"];
 }
+
 
 <h1>Index</h1>
 
@@ -13,9 +13,6 @@
 <table class="table">
     <thead>
         <tr>
-@*            <th>
-                @Html.DisplayNameFor(model => model.execPic)
-            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.execFirstName)
             </th>
@@ -46,14 +43,8 @@
     
 
 @foreach (var item in Model) {
-                  
-    
+        <tr style = "cursor:pointer" onclick="showExecs('@item.execID', '@item.execGamingTag' ); showImg('@item.execID')" data-toggle="modal" data-target="#exampleModal">
 
-   
-        <tr style = "cursor:pointer" onclick="showExecs('@item.execID', '@item.execGamingTag' )" data-toggle="modal" data-target="#exampleModal">
-        
-           
-            
             <td >
                  @Html.DisplayFor(modelItem => item.execFirstName)
             </td>
@@ -82,42 +73,14 @@
                 @*<a asp-action="Edit" asp-route-id="@item.execID">Edit</a> |*@
                 <a asp-action="Details" asp-route-id="@item.execID">Details</a> 
                 @*<a asp-action="Delete" asp-route-id="@item.execID">Delete</a>*@
-            </td>
-
-            
+            </td>            
         </tr>
-    
-
-}
-    
+}  
 </table>
 
-<script>
-function showExecs(id, tag) {
-    const url = "@Url.Action("Info", "Execs")/" + id; /*method and controller respectively*/
-console.log("Show products fnc called" , id);
-console.log("url= ", url);
-
-// using $ sign to access jQuery library
-$.get(url, function (data) {
-    console.log(data);
-$(".modal-body").html(data);
-$("#exampleModalLabel").html(tag + "'s profile");
-    });
-
-}
-
-function showBio(id){
-    const url = "@Url.Action("Info", "Execs")/" + id;
-}
-
-
-</script>
-
-
 <!-- Modal -->
-<div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+<div class="modal fade " id="exampleModal" tabindex="-1" @*role="dialog"*@ aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl" @*role="document"*@>
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
@@ -125,18 +88,16 @@ function showBio(id){
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">   
-                
+            <div class="content-container">
+                <div class="modal-wrap">	
+				<img src="" alt="" id="execpics">	
+	      	    </div>
+                <div class="modal-body"></div>
             </div>
-            
-            @*<div class="modal-wrap">	
-				<img src="@ViewData["Exec"]" alt="">	
-	      		<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>	          		
-	      	</div>*@
+@*            
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                @*<button type="button" class="btn btn-primary">Save changes</button>*@
-            </div>
+            </div>*@
         </div>
     </div>
 </div>
@@ -279,3 +240,30 @@ function showBio(id){
 </div>
 *@
 
+<script>
+function showExecs(id, tag) {
+    const url = "@Url.Action("Info", "Execs")/" + id; /*method and controller respectively*/
+console.log("Show products fnc called" , id);
+console.log("url= ", url);
+
+// using $ sign to access jQuery library
+$.get(url, function (data) {
+    console.log(data);
+$(".modal-body").html(data);
+$("#exampleModalLabel").html(tag + "'s profile");
+    });
+
+}
+
+function showImg(id){
+    const url = "@Url.Action("Img", "Execs")/" + id;
+    console.log("Show img fnc called" , id);
+
+
+    $.get(url, function (data) {
+    console.log(data);
+$("#execpics").attr("src", data);
+    });
+}
+
+</script>

@@ -114,6 +114,9 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
                     lastName = Input.lastName,
                     email = Input.Email,
                 };
+
+                
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 
 
@@ -136,6 +139,7 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
                     //add Indentity created items to personal db
                     newreg.Id = user.Id;
                     newreg.profilePic = "../../Assets/Pic/26293.jpg";
+                    
 
 
 
@@ -156,8 +160,12 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
 
                     //ADD NEW  USER TO TO PERSONAL DB
                     _mySqlDb.NewReg.Add(newreg);
-                    
                     _mySqlDb.SaveChanges();
+
+                    //var userFiles = new UserImage { userID = newreg.Id };
+                    //userFiles.imagePath = newreg.profilePic;
+                    //_mySqlDb.UserFiles.Add(userFiles);
+                    //_mySqlDb.SaveChanges();
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

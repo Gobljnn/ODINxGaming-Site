@@ -227,7 +227,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.UserImage", b =>
                 {
-                    b.HasOne("OdinXSiteMVC2.Models.Exec", "Users")
+                    b.HasOne("OdinXSiteMVC2.Models.DTO.NewRegDTO", "Users")
                         .WithMany()
                         .HasForeignKey("userID");
 

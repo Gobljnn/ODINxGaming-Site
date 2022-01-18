@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using OdinXSiteMVC2.Models.DTO;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OdinXSiteMVC2.Models {
@@ -12,7 +13,7 @@ namespace OdinXSiteMVC2.Models {
 
         [ForeignKey("Users")]
         public string userID { get; set; }
-        public Exec Users { get; set; }
+        public NewRegDTO Users { get; set; }
         //[ForeignKey("ImageID")]
         public string imageName { get; set; }
         public string imagePath { get; set; }
