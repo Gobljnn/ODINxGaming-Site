@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace OdinXSiteMVC2.Models {
     public class Exec {
         [Display(Name = "ID")]
-        public int execID { get; set; }
+        public string execID { get; set; }
         [Display(Name = "First Name")]
         public string execFirstName { get; set; }
         [Display(Name = "Last Name")]
@@ -29,6 +29,8 @@ namespace OdinXSiteMVC2.Models {
         //public DateTime lastLogin { get; set; }
 
         public string execPic { get; set; }
+
+        public string bio { get; set; }
         //public string bio { get; set; }
     }
 }

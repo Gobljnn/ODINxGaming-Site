@@ -144,9 +144,9 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
 
                     //capture id and role name in  new entity
                     //FIND PLEBS ID
-                    Roles newRole = _roleManager.Roles
+                    Role newRole = _roleManager.Roles
                     .Where(p => p.Name.Equals("Plebs"))
-                    .Select(rid => new Roles { roleID = rid.Id })
+                    .Select(rid => new Role { roleID = rid.Id })
                     .FirstOrDefault();
 
                     //ADD NEW DATA TO NEWREGDTO

@@ -9,8 +9,8 @@ using OdinXSiteMVC2.Data;
 namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 {
     [DbContext(typeof(OdinXSiteMVC2Context))]
-    [Migration("20220115005328_initial")]
-    partial class initial
+    [Migration("20220118001800_upd")]
+    partial class upd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,21 +43,25 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                         .HasColumnType("longtext");
 
                     b.Property<string>("roleId")
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("userName")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("roleId");
+
                     b.ToTable("NewReg");
                 });
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.Exec", b =>
                 {
-                    b.Property<int>("execID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("execID")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("bio")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("execFirstName")
                         .HasColumnType("longtext");
@@ -93,7 +97,8 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     b.HasData(
                         new
                         {
-                            execID = 1,
+                            execID = "001",
+                            bio = " Oluwadamilola Gobljnn Adebayo (Dammy), a chemical engineer, one of the co-founders of ODINxGAMING goes by the gamer His favourite genre to play is FPS, which includes a shit - ton of Overwatch and Call of Duty.He also dabbles in a bit of Rocket League buthe dog water.Gobljnn is ODINxGaming's Lead Developer and UI Support member.",
                             execFirstName = "Dammy",
                             execGamingTag = "Gobljnn",
                             execHierarchy = "Founding",
@@ -104,7 +109,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                         },
                         new
                         {
-                            execID = 2,
+                            execID = "002",
                             execFirstName = "Kitan",
                             execGamingTag = "Kitan3000",
                             execHierarchy = "Founding",
@@ -115,7 +120,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                         },
                         new
                         {
-                            execID = 3,
+                            execID = "003",
                             execFirstName = "Nathan",
                             execGamingTag = "Fishboy8383",
                             execHierarchy = "Founding",
@@ -126,7 +131,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                         });
                 });
 
-            modelBuilder.Entity("OdinXSiteMVC2.Models.Roles.Roles", b =>
+            modelBuilder.Entity("OdinXSiteMVC2.Models.Roles.Role", b =>
                 {
                     b.Property<string>("roleID")
                         .HasColumnType("varchar(255)");
@@ -152,7 +157,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                         .HasColumnType("longtext");
 
                     b.Property<string>("execId")
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("execName")
                         .HasColumnType("longtext");
@@ -177,6 +182,8 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 
                     b.HasKey("socialID");
 
+                    b.HasIndex("execId");
+
                     b.ToTable("ExecSocial");
                 });
 
@@ -193,11 +200,40 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                         .HasColumnType("longtext");
 
                     b.Property<string>("userID")
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("userID");
+
                     b.ToTable("UserFiles");
+                });
+
+            modelBuilder.Entity("OdinXSiteMVC2.Models.DTO.NewRegDTO", b =>
+                {
+                    b.HasOne("OdinXSiteMVC2.Models.Roles.Role", "Roles")
+                        .WithMany()
+                        .HasForeignKey("roleId");
+
+                    b.Navigation("Roles");
+                });
+
+            modelBuilder.Entity("OdinXSiteMVC2.Models.Socials.ExecSocial", b =>
+                {
+                    b.HasOne("OdinXSiteMVC2.Models.Exec", "Users")
+                        .WithMany()
+                        .HasForeignKey("execId");
+
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("OdinXSiteMVC2.Models.UserImage", b =>
+                {
+                    b.HasOne("OdinXSiteMVC2.Models.Exec", "Users")
+                        .WithMany()
+                        .HasForeignKey("userID");
+
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

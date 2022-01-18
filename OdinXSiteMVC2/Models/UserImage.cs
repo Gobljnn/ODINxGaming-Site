@@ -10,9 +10,9 @@ namespace OdinXSiteMVC2.Models {
 
         //Implement Foreign Keys - AT LATER DATE#GOB
 
-        //[ForeignKey("Users")]
+        [ForeignKey("Users")]
         public string userID { get; set; }
-        //public Exec Users { get; set; }
+        public Exec Users { get; set; }
         //[ForeignKey("ImageID")]
         public string imageName { get; set; }
         public string imagePath { get; set; }

@@ -23,7 +23,7 @@ namespace OdinXSiteMVC2.Data
 
         public DbSet<ExecSocial> ExecSocials { get; set; }
 
-        public DbSet<Roles> Roles { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         //Mockdata is below
         //add-migration -context OdinXSiteMVC2Context
@@ -41,7 +41,7 @@ namespace OdinXSiteMVC2.Data
 
             modelBuilder.Entity<Exec>().HasData(
                 new Exec {
-                    execID = 001,
+                    execID = "001",
                     execFirstName = "Dammy",
                     execLastName = "Adebayo",
                     username = "Gobljnn",
@@ -49,11 +49,12 @@ namespace OdinXSiteMVC2.Data
                     execTitle = "Programmer",
                     execHierarchy = "Founding",
                     favGame = "OW",
-                    execPic = null
+                    execPic = null,
+                    bio = " Oluwadamilola Gobljnn Adebayo (Dammy), a chemical engineer, one of the co-founders of ODINxGAMING goes by the gamer His favourite genre to play is FPS, which includes a shit - ton of Overwatch and Call of Duty.He also dabbles in a bit of Rocket League buthe dog water.Gobljnn is ODINxGaming\'s Lead Developer and UI Support member."
                 },
 
                 new Exec {
-                    execID = 002,
+                    execID = "002",
                     execFirstName = "Kitan",
                     execLastName = "Adebowale",
                     username = "Kitan3000",
@@ -65,7 +66,7 @@ namespace OdinXSiteMVC2.Data
                 },
 
                 new Exec {
-                    execID = 003,
+                    execID = "003",
                     execFirstName = "Nathan",
                     execLastName = "Stayer",
                     username = "Fishboy8383",

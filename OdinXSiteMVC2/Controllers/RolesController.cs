@@ -61,7 +61,7 @@ namespace OdinXSiteMVC2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("roleID,roleName")] Roles roles)
+        public async Task<IActionResult> Create([Bind("roleID,roleName")] Role roles)
         {
             if (ModelState.IsValid)
             {
@@ -73,9 +73,9 @@ namespace OdinXSiteMVC2.Controllers
                 //_authDb.Roles.Add(roles);
 
                 //NEW ENTITY TO COPY INFO
-                Roles newRole = _roleManager.Roles
+                Role newRole = _roleManager.Roles
                     .Where(p => p.Name.Equals(roles.roleName))
-                    .Select(rid => new Roles { roleID = rid.Id })
+                    .Select(rid => new Role { roleID = rid.Id })
                     .FirstOrDefault();
 
                 roles.roleID = newRole.roleID;
@@ -110,7 +110,7 @@ namespace OdinXSiteMVC2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("roleID,roleName")] Roles roles)
+        public async Task<IActionResult> Edit(string id, [Bind("roleID,roleName")] Role roles)
         {
             if (id != roles.roleID)
             {

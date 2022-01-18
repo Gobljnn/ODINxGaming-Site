@@ -10,8 +10,10 @@ namespace OdinXSiteMVC2.Models.Socials {
 
         [Key]
         public int socialID { get; set; }
-
+        [ForeignKey("Users")]
         public string execId { get; set; }
+        public Exec Users { get; set; }
+        
         [Display(Name = "Name")]
         public string execName { get; set; }
         [Display(Name = "Channel")]

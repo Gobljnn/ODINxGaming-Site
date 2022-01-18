@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using OdinXSiteMVC2.Models.Roles;
 
 namespace OdinXSiteMVC2.Models.DTO {
     public class NewRegDTO {
@@ -21,9 +23,10 @@ namespace OdinXSiteMVC2.Models.DTO {
         public string gamerTag { get; set; }
 
         public string role { get; set; }
-
+        [ForeignKey("Roles")]
         public string roleId { get; set; }
-        
+        public Role Roles { get; set; }
+
 
 
         //public string bio { get; set; }

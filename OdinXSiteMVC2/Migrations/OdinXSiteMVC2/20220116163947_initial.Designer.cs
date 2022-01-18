@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OdinXSiteMVC2.Data;
 
 namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 {
     [DbContext(typeof(OdinXSiteMVC2Context))]
-    partial class OdinXSiteMVC2ContextModelSnapshot : ModelSnapshot
+    [Migration("20220116163947_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,9 +60,6 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     b.Property<string>("execID")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("bio")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("execFirstName")
                         .HasColumnType("longtext");
 
@@ -96,7 +95,6 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                         new
                         {
                             execID = "001",
-                            bio = " Oluwadamilola Gobljnn Adebayo (Dammy), a chemical engineer, one of the co-founders of ODINxGAMING goes by the gamer His favourite genre to play is FPS, which includes a shit - ton of Overwatch and Call of Duty.He also dabbles in a bit of Rocket League buthe dog water.Gobljnn is ODINxGaming's Lead Developer and UI Support member.",
                             execFirstName = "Dammy",
                             execGamingTag = "Gobljnn",
                             execHierarchy = "Founding",

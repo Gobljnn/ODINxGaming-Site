@@ -254,17 +254,19 @@ namespace OdinXSiteMVC2.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("roleId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("userName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("roleId");
+
                     b.ToTable("NewRegDTO");
                 });
 
-            modelBuilder.Entity("OdinXSiteMVC2.Models.Roles.Roles", b =>
+            modelBuilder.Entity("OdinXSiteMVC2.Models.Roles.Role", b =>
                 {
                     b.Property<string>("roleID")
                         .HasColumnType("nvarchar(450)");
@@ -326,6 +328,15 @@ namespace OdinXSiteMVC2.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("OdinXSiteMVC2.Models.DTO.NewRegDTO", b =>
+                {
+                    b.HasOne("OdinXSiteMVC2.Models.Roles.Role", "Roles")
+                        .WithMany()
+                        .HasForeignKey("roleId");
+
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }

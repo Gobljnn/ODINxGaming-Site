@@ -21,7 +21,7 @@ namespace OdinXSiteMVC2.Controllers
         private readonly OdinXSiteMVC2Context _mySqlDb;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        protected int userIDC;
+        protected string userIDC;
         public ExecsController(OdinXSiteMVC2Context context, IWebHostEnvironment webhost)
         {
             _mySqlDb = context;
@@ -37,9 +37,40 @@ namespace OdinXSiteMVC2.Controllers
         }
 
 
+        public IEnumerable<string> Info(string? id) {
+
+            //Path of Exec Pic will be found here through lambda - use in img source in index of exec.
+            ViewData["Exec"] = id;
+
+       
+            var info = _mySqlDb.Exec
+                .Where(p => p.execID == id)
+                .Select(p => p.bio);
+            //.ToList(); use this and you can change IEmunarable (which is more flexible) to List<string>
+
+            if (info == null || info.Count() == 0) {
+                return new List<string> { "No Products Found" };
+            }
+
+            return info;
+        }
+
+        public IEnumerable<string> bio(string? id) {
+            var info = _mySqlDb.Exec
+                .Where(p => p.execID == id)
+                .Select(p => p.bio);
+            //.ToList(); use this and you can change IEmunarable (which is more flexible) to List<string>
+
+            if (info == null || info.Count() == 0) {
+                return new List<string> { "No Products Found" };
+            }
+
+            return info;
+        }
+
 
         // GET: Execs/Details/5 - USED TO SEE SPECIFIC INFO ON EXECS - ADD A MODAL - AT A LATER DATE#GOB
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
             {
@@ -79,7 +110,7 @@ namespace OdinXSiteMVC2.Controllers
         }
 
         // GET: Execs/Edit/5  - AT A LATER DATE#GOB
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string? id)
         {
             if (id == null)
             {
@@ -100,7 +131,7 @@ namespace OdinXSiteMVC2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("execID,execFirstName,execLastName,execGamingTag,username,execTitle,execHierarchy,favGame,loginAmt")] Exec exec)
+        public async Task<IActionResult> Edit(string id, [Bind("execID,execFirstName,execLastName,execGamingTag,username,execTitle,execHierarchy,favGame,loginAmt")] Exec exec)
         {
             if (id != exec.execID)
             {
@@ -203,7 +234,7 @@ namespace OdinXSiteMVC2.Controllers
         /*------------------------
                                 -----------------------------------------------*/
         // GET: Execs/Delete/5 - REMOVE   - AT A LATER DATE#GOB
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? id)
         {
             if (id == null)
             {
@@ -231,7 +262,7 @@ namespace OdinXSiteMVC2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ExecExists(int id)
+        private bool ExecExists(string id)
         {
             return _mySqlDb.Exec.Any(e => e.execID == id);
         }

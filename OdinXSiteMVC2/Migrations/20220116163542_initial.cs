@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OdinXSiteMVC2.Migrations
 {
-    public partial class ini : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,25 +47,6 @@ namespace OdinXSiteMVC2.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "NewRegDTO",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    firstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    lastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    userName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    profilePic = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    gamerTag = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    role = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    roleId = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NewRegDTO", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -186,6 +167,31 @@ namespace OdinXSiteMVC2.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "NewRegDTO",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    firstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    lastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    userName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    profilePic = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    gamerTag = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    role = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    roleId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NewRegDTO", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_NewRegDTO_Roles_roleId",
+                        column: x => x.roleId,
+                        principalTable: "Roles",
+                        principalColumn: "roleID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -224,6 +230,11 @@ namespace OdinXSiteMVC2.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NewRegDTO_roleId",
+                table: "NewRegDTO",
+                column: "roleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -247,13 +258,13 @@ namespace OdinXSiteMVC2.Migrations
                 name: "NewRegDTO");
 
             migrationBuilder.DropTable(
-                name: "Roles");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }

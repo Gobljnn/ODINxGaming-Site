@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    //var pic = ViewData["Exec"];
 }
 
 <h1>Index</h1>
@@ -36,17 +37,25 @@
             <th>
                 @Html.DisplayNameFor(model => model.favGame)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.bio)
+            </th>
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    
+
 @foreach (var item in Model) {
-        <tr>
-@*            <td>
-                @Html.DisplayFor(modelItem => item.execPic)     
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.execFirstName)
+                  
+    
+
+   
+        <tr style = "cursor:pointer" onclick="showExecs('@item.execID', '@item.execGamingTag' )" data-toggle="modal" data-target="#exampleModal">
+        
+           
+            
+            <td >
+                 @Html.DisplayFor(modelItem => item.execFirstName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.execLastName)
@@ -67,11 +76,206 @@
                 @Html.DisplayFor(modelItem => item.favGame)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.bio)
+            </td>
+            <td>
                 @*<a asp-action="Edit" asp-route-id="@item.execID">Edit</a> |*@
                 <a asp-action="Details" asp-route-id="@item.execID">Details</a> 
                 @*<a asp-action="Delete" asp-route-id="@item.execID">Delete</a>*@
             </td>
+
+            
         </tr>
+    
+
 }
-    </tbody>
+    
 </table>
+
+<script>
+function showExecs(id, tag) {
+    const url = "@Url.Action("Info", "Execs")/" + id; /*method and controller respectively*/
+console.log("Show products fnc called" , id);
+console.log("url= ", url);
+
+// using $ sign to access jQuery library
+$.get(url, function (data) {
+    console.log(data);
+$(".modal-body").html(data);
+$("#exampleModalLabel").html(tag + "'s profile");
+    });
+
+}
+
+function showBio(id){
+    const url = "@Url.Action("Info", "Execs")/" + id;
+}
+
+
+</script>
+
+
+<!-- Modal -->
+<div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">   
+                
+            </div>
+            
+            @*<div class="modal-wrap">	
+				<img src="@ViewData["Exec"]" alt="">	
+	      		<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>	          		
+	      	</div>*@
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                @*<button type="button" class="btn btn-primary">Save changes</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal 3 -->
+
+
+@*	<div class="section full-height">
+      	<input class="modal-btn" type="checkbox" id="modal-btn" name="modal-btn"/>
+      	<label for="modal-btn">Open Modal <i class="uil uil-expand-arrows"></i></label> 		
+      	<div class="modal">		
+	      	<div class="modal-wrap">	
+				<img src="https://assets.codepen.io/1462889/sl3.jpg" alt="">	
+	      		<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>	          		
+	      	</div>			          		
+      	</div>	
+
+		<a href="https://front.codes/" class="logo" target="_blank">
+			<img src="https://assets.codepen.io/1462889/fcy.png" alt="">
+		</a>	
+	</div>
+*@
+<!-- /modal 3 -->
+@*
+
+<div>
+    <div>
+            <h2>Where did our name come from? <br> <br> </h2>
+        </div>
+
+        <div class=container>
+            <p>
+                We used to originally be called UAlberta Gaming, because it's founding members studied Engineering at the University of Alberta (U of A) 
+                and the server originally only included students that went to the U of A. However, due to the founding members all graduating and having
+                the server grow in size UAlberta Gaming decided to rebrand and call themselves ODINxGaming. <br> <br>
+                
+                Where did ODIN come from? Well we combined the beginning letters of the four founding members to create ODIN, then we tacked on xGaming 
+                because that is primarily what our group was made to do. Get togther and game with our community. <br> <br>
+    
+                Learn more about our founding members below.
+            </p>
+        </div>
+
+        <div>
+            <h2>Founders</h2>
+        </div>
+        <div class="founderscontainer">
+            <table>
+                <tr>
+                    <td><img src="style/Assets/pic/Goblogo.png" alt="Goblnn's logo" class="logo" id="dammy"></td>
+                    <td>
+                        <span style="font-weight: bold; font-size: larger;" >Dammy Adebayo (Lead Designer // UI Support)</span> <br> <br>
+                        Oluwadamilola "Gobljnn" Adebayo (Dammy), a chemical engineer, one of the co-founders of ODINxGAMING goes by the gamer 
+                        tag <abbr title="Pronounced as Goblin">Gobljnn</abbr>. His favourite genre to play is FPS, which 
+                        includes a shit-ton of Overwatch and Call of Duty. He also dabbles in a bit of Rocket League but 
+                        he dog water. Gobljnn is ODINxGaming's Lead Developer and UI Support member.
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="style/Assets/pic/danny_gold.png" alt="Beanbag's Snipe's Logo" class="logo" id="Danny"></td>
+                    <td>
+                        <span style="font-weight: bold; font-size: larger;" >Danny Yoon (Customer Service // Support Manager)</span> <br> <br>
+                        Danny Yoon, a petroleum engineer, one of the co-founders of ODINxGAMING goes by the gamer 
+                        tag <abbr title="You can call him Yoon as well">Beanbag Snipe</abbr>. His favourite genres to play 
+                        are FPS such as Overwatch, Call of Duty. But honestly homie works so much at his actual job we
+                        we should fire his ass. Obviously, jokes... Even though he is really busy with work if you have any
+                        suggestions on how we can improve let him know on our 
+                        <a href="https://discord.gg/ppjSvSM8dw" target="_blank">Discord</a>.
+                        Beanbag Snipe's role within ODINxGAMING's gaming is to facilitate and implement suggestions from our clients.
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="style/Assets/pic/k3klogo.png" alt="Kitan 3000's logo" class="logo" id="kitan"></td>
+                    <td>
+                        <span style="font-weight: bold; font-size: larger;" >Kitan Adebowale (HR Director // Photographer // Lead Photo Editor)</span> <br> <br>
+                        Ibukun "Kitan 3000" Adebowale (Kitan), a civil engineer, one of the co-founders of ODINxGAMING goes by the gamer 
+                        tag <abbr title="A.K.A Kitan3K, K3K">Kitan 3000</abbr>. His favourite genres to play are FPS 
+                        and racing games. His gaming forte includes Overwatch, Call of Duty, Rocket League, Forza, 
+                        and girls hearts (jokes). His role within ODINxGAMING is to oversee all server and organizational
+                        management. He also handles all disciplinary actions within our organization.
+                    </td>
+                </tr>
+
+                <tr>
+                    <td> <img src="style/Assets/pic/Fishboi8383logo.png" alt="Fisboi's (Fishboy8383) logo" class = "logo" id="nathan"></td>
+                    <td> 
+                        <span style="font-weight: bold; font-size: larger;" >Nathan Stayer (Content Manager // Lead Video Editor )</span> <br> <br>
+                        Nathan "Fishboy8383" Stayer, Civil Engineer, is our final founding member of ODINxGAMING goes by the gamer tag
+                        <abbr title="Derived from his love of Pokemon"> Fishboy8383</abbr>. He likes to play any and all types of games
+                        he is the most versatile gamer out of all of us. However, his go to games are Overwatch, Battlefield, Pokemon,
+                        League of Legends, Valorant, Call of Duty. Fun fact... Fishboy8383 used to be a fortnite god. He was the original Justin
+                        before Justin was born. <a href="https://www.youtube.com/watch?v=xQJ3OOPXMec" target="_blank">SEE HERE</a>. His role within
+                        ODINxGAMING includes server and content managment and he is our senior video editor. 
+                    </td>
+                </tr>
+                
+            </table>
+
+            <div>
+                <h2> Senior Members</h2>
+            </div>
+
+            <div>
+                <table>
+                    <tr>
+                        <td> <img src="style/Assets/pic/Kartik logo.png" alt="Kartik's (Arkx) Logo" class="logo" id="Kartik"></td>
+                        <td>
+                            <span style="font-weight: bold; font-size: larger;" >Kartik Dhanda (VP of Business Development)</span> <br> <br>
+                            Kartik "Arkx" Dhanda, who has been a very close friend to K3K and Fishboy8383, joined ODINxGAMING while they were still 
+                            called UAlberta Gaming and quickly climbed to the ranks to become a senior member. Also and all around gamer he specializes in
+                            in MMO, FPS, and Arcade games. He graduated as a mechanical engineer. <br> <br>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> <img src="style/Assets/pic/itchylogo.png" alt="Raj's (ItchyGand) logo" class="logo" id="raj"></td>
+                        <td>
+                            <span style="font-weight: bold; font-size: larger;" >Divyraj Mahida (VP of Business Development // Social Media Manager)</span> <br> <br>
+                            Divyraj "ItchyGand" Mahida also a very close friend to the founding members of ODINxGaming, also joined shortly before ODINxGAMING rebranded from
+                            UAlberta Gaming. He specializes in FPS games such as COD and Battlefield. He is part of ODINxGaming's sales team. He graduated as a chemical engineer.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div>
+                <table>
+                    <tr>
+                        <td> </td>
+                    </tr>
+
+                </table>
+            </div>
+
+            
+        </div>
+</div>
+*@
+

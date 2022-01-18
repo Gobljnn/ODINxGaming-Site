@@ -28,7 +28,7 @@ namespace OdinXSiteMVC2.Data {
 
         }
 
-        public DbSet<OdinXSiteMVC2.Models.Roles.Roles> Roles { get; set; }
+        public DbSet<OdinXSiteMVC2.Models.Roles.Role> Roles { get; set; }
 
         public DbSet<OdinXSiteMVC2.Models.DTO.NewRegDTO> NewRegDTO { get; set; }
 
