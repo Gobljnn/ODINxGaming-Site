@@ -10,12 +10,9 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
+@*<table class="table">*@
+    @*<thead>
         <tr>
-            @*<th>
-                @Html.DisplayNameFor(model => model.execId)
-            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.execName)
             </th>
@@ -45,13 +42,79 @@
             </th>
             <th></th>
         </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
+    </thead>*@
+    @*<tbody>*@
+
+@*<div class="exec-soc-container"> 
+  *@
+    @foreach (var item in Model) {
+
+@*
+        <div class="exec-soc-container"> 
+            <div class="exec-socials">
+                
+            </div>
+        
+</div>
+*@
+
+
+<div class="card" style="width: 18rem;">
+  <img src="@item.scLink" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">@Html.DisplayFor(modelItem => item.execName)</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">An item</li>
+    <li class="list-group-item">A second item</li>
+    <li class="list-group-item">A third item</li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">@Html.DisplayFor(modelItem => item.execName)</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">An item</li>
+    <li class="list-group-item">A second item</li>
+    <li class="list-group-item">A third item</li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+
+
+
+
+
+
+
+    }
+@*</div>
+*@
+    
+
+
+@*@foreach (var item in Model) {
+    <div class="exec-soc-container">
+        <div class="exec-socials">
+            @Html.DisplayFor(modelItem => item.execName)
+        </div>
+    </div>
         <tr>
-            @*<td>
+            <td>
                 @Html.DisplayFor(modelItem => item.execId)
-            </td>*@
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.execName)
             </td>
@@ -87,4 +150,4 @@
         </tr>
 }
     </tbody>
-</table>
+</table>*@

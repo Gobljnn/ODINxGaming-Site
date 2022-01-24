@@ -51,6 +51,15 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     b.HasIndex("roleId");
 
                     b.ToTable("NewReg");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "xyz",
+                            firstName = "Test",
+                            lastName = "Admin",
+                            profilePic = "../../Assets/Pic/Fishboi8383logo.jpg"
+                        });
                 });
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.Exec", b =>
@@ -97,7 +106,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                         {
                             execID = "001",
                             bio = " Oluwadamilola Gobljnn Adebayo (Dammy), a chemical engineer, one of the co-founders of ODINxGAMING goes by the gamer His favourite genre to play is FPS, which includes a shit - ton of Overwatch and Call of Duty.He also dabbles in a bit of Rocket League buthe dog water.Gobljnn is ODINxGaming's Lead Developer and UI Support member.",
-                            execFirstName = "Dammy",
+                            execFirstName = "Damm",
                             execGamingTag = "Gobljnn",
                             execHierarchy = "Founding",
                             execLastName = "Adebayo",
@@ -166,6 +175,9 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     b.Property<string>("live")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("logo")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("scLink")
                         .HasColumnType("longtext");
 
@@ -183,6 +195,24 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     b.HasIndex("execId");
 
                     b.ToTable("ExecSocial");
+
+                    b.HasData(
+                        new
+                        {
+                            socialID = 1,
+                            execId = "001",
+                            execName = "Gobljnn",
+                            scLink = "soundcloud.com/gobljnn",
+                            ttvlink = "twitch.tv/gobljnn"
+                        },
+                        new
+                        {
+                            socialID = 2,
+                            execId = "001",
+                            execName = "K3k",
+                            scLink = "soundcloud.com/k3k",
+                            ttvlink = "twitch.tv/k3k"
+                        });
                 });
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.UserImage", b =>

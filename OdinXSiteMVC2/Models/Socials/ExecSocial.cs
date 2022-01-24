@@ -13,8 +13,10 @@ namespace OdinXSiteMVC2.Models.Socials {
         [ForeignKey("Users")]
         public string execId { get; set; }
         public Exec Users { get; set; }
-        
-        [Display(Name = "Name")]
+        public string logo { get; set; }
+        //public Exec
+     
+        [Display (Name = "Name")]
         public string execName { get; set; }
         [Display(Name = "Channel")]
         public string discordName { get; set; }

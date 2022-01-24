@@ -10,7 +10,7 @@ using OdinXSiteMVC2.Data;
 namespace OdinXSiteMVC2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220118175916_initial")]
+    [Migration("20220124234731_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

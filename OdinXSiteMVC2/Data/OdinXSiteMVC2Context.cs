@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using OdinXSiteMVC2.Models;
 using OdinXSiteMVC2.Models.Socials;
 using OdinXSiteMVC2.Models.Roles;
+using OdinXSiteMVC2.Models.DTO;
 
 namespace OdinXSiteMVC2.Data
 {
@@ -40,10 +41,41 @@ namespace OdinXSiteMVC2.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<NewRegDTO>().HasData(
+                new NewRegDTO {
+                    Id = "xyz",
+                    firstName = "Test",
+                    lastName = "Admin",
+                    profilePic = "../../Assets/Pic/Fishboi8383logo.jpg",
+
+
+                }
+                );
+
+            modelBuilder.Entity<ExecSocial>().HasData(
+                new ExecSocial {
+                    socialID = 1,
+                    execId = "001",
+                    execName = "Gobljnn",
+                    ttvlink = "twitch.tv/gobljnn",
+                    scLink = "soundcloud.com/gobljnn",
+
+                },
+
+                new ExecSocial {
+                    socialID = 2,
+                    execId = "001",
+                    execName = "K3k",
+                    ttvlink = "twitch.tv/k3k",
+                    scLink = "soundcloud.com/k3k",
+
+                }
+                );
+
             modelBuilder.Entity<Exec>().HasData(
                 new Exec {
                     execID = "001",
-                    execFirstName = "Dammy",
+                    execFirstName = "Damm",
                     execLastName = "Adebayo",
                     username = "Gobljnn",
                     execGamingTag = "Gobljnn",

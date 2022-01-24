@@ -5,11 +5,26 @@
 }
 
 
-<h1>Index</h1>
+@*<h1>About Us</h1>*@
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
+
+<h2>Where did our name come from? <br> <br> </h2>
+<div class=container>
+    <p>
+        We used to originally be called UAlberta Gaming, because it's founding members studied Engineering at the University of Alberta (U of A) 
+        and the server originally only included students that went to the U of A. However, due to the founding members all graduating and having
+        the server grow in size UAlberta Gaming decided to rebrand and call themselves ODINxGaming. <br> <br>
+                
+        Where did ODIN come from? Well we combined the beginning letters of the four founding members to create ODIN, then we tacked on xGaming 
+        because that is primarily what our group was made to do. Get togther and game with our community. <br> <br>
+    
+        Learn more about our founding members below.
+    </p>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -22,28 +37,28 @@
             <th>
                 @Html.DisplayNameFor(model => model.execGamingTag)
             </th>
-            <th>
+           @* <th>
                 @Html.DisplayNameFor(model => model.username)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.execTitle)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.execHierarchy)
-            </th>
-            <th>
+            </th>*@
+            @*<th>
                 @Html.DisplayNameFor(model => model.favGame)
-            </th>
-            <th>
+            </th>*@
+            @*<th>
                 @Html.DisplayNameFor(model => model.bio)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
     
 
 @foreach (var item in Model) {
-        <tr style = "cursor:pointer" onclick="showExecs('@item.execID', '@item.execGamingTag' ); showImg('@item.execID')" data-toggle="modal" data-target="#exampleModal">
+        <tr style = "cursor:pointer" onclick="showExecs('@item.execID', '@item.execGamingTag', '@item.execTitle' ); showImg('@item.execID')" data-toggle="modal" data-target="#exampleModal">
 
             <td >
                  @Html.DisplayFor(modelItem => item.execFirstName)
@@ -54,21 +69,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.execGamingTag)
             </td>
-            <td>
+           @* <td>
                 @Html.DisplayFor(modelItem => item.username)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.execTitle)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.execHierarchy)
-            </td>
-            <td>
+            </td>*@
+            @*<td>
                 @Html.DisplayFor(modelItem => item.favGame)
-            </td>
-            <td>
+            </td>*@
+            @*<td>
                 @Html.DisplayFor(modelItem => item.bio)
-            </td>
+            </td>*@
             <td>
                 @*<a asp-action="Edit" asp-route-id="@item.execID">Edit</a> |*@
                 <a asp-action="Details" asp-route-id="@item.execID">Details</a> 
@@ -84,6 +99,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <h5 class="exec-title"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -128,18 +144,7 @@
             <h2>Where did our name come from? <br> <br> </h2>
         </div>
 
-        <div class=container>
-            <p>
-                We used to originally be called UAlberta Gaming, because it's founding members studied Engineering at the University of Alberta (U of A) 
-                and the server originally only included students that went to the U of A. However, due to the founding members all graduating and having
-                the server grow in size UAlberta Gaming decided to rebrand and call themselves ODINxGaming. <br> <br>
-                
-                Where did ODIN come from? Well we combined the beginning letters of the four founding members to create ODIN, then we tacked on xGaming 
-                because that is primarily what our group was made to do. Get togther and game with our community. <br> <br>
-    
-                Learn more about our founding members below.
-            </p>
-        </div>
+        
 
         <div>
             <h2>Founders</h2>
@@ -224,24 +229,11 @@
                         <td> </td>
                     </tr>
                 </table>
-            </div>
 
-            <div>
-                <table>
-                    <tr>
-                        <td> </td>
-                    </tr>
-
-                </table>
-            </div>
-
-            
-        </div>
-</div>
 *@
 
 <script>
-function showExecs(id, tag) {
+function showExecs(id, tag, title) {
     const url = "@Url.Action("Info", "Execs")/" + id; /*method and controller respectively*/
 console.log("Show products fnc called" , id);
 console.log("url= ", url);
@@ -250,7 +242,7 @@ console.log("url= ", url);
 $.get(url, function (data) {
     console.log(data);
 $(".modal-body").html(data);
-$("#exampleModalLabel").html(tag + "'s profile");
+$("#exampleModalLabel").html(tag + "'s profile // " + title);
     });
 
 }

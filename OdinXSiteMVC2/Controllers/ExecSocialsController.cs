@@ -11,7 +11,7 @@ using OdinXSiteMVC2.Models.Socials;
 
 namespace OdinXSiteMVC2.Controllers
 {
-    [Authorize(Roles = "Plebs")]
+    //[Authorize(Roles = "Plebs")]
     public class ExecSocialsController : Controller
     {
         private readonly OdinXSiteMVC2Context _context;
