@@ -1,27 +1,47 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using OdinXSiteMVC2.Data
+@using OdinXSiteMVC2.Models.DTO;
+@using System.Security.Claims
+@*@model IEnumerable<OdinXSiteMVC2.Models.DTO.NewRegDTO>*@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject OdinXSiteMVC2Context _mySqlDb
 
-<ul class="navbar-nav">
+@{
+    //http:schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier: 224ea5ae-0209-466f-9177-f6e9634bd344
+}
+
+<div class="navbar-nav">
+
 @if (SignInManager.IsSignedIn(User))
+    
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
+    //CLAIMTYPE.NAMEIDENTIFIER IS USED TO FIND THE ID OF THE USER - REMOVE THE LINK FROM ABOVE
+    string id = User.FindFirst(ClaimTypes.NameIdentifier).ToString().Remove(0,70);
+
+    //FIND THE PIC LCOATION IN DB 
+    string myUser = _mySqlDb.NewReg
+        .Where(p => p.Id.Equals(id))
+        .Select(imgs  => imgs.profilePic)
+        .FirstOrDefault();
+
+    <div class="nav-item log"> 
+        <img class="profilePic" src= "@myUser"/> 
+        <div> </div>
+        <div class="nav-item">
+            <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Welcome @User.Identity.Name!</a>
+            <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </div>
+    </div>
+    
 }
 else
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
+        <div class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </div>
 }
-</ul>
+</div>

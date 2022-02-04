@@ -67,12 +67,13 @@ html {
   min-height: 100%;
 }
 
+/* find: background image */
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
     background-size:cover;
     background-position: center center;
-    background-image: url('/Assets/Pic/bandg1.jpg');
+    background-image: url('/Assets/Pic/blackandgold1.jpg');
 }
 .footer {
   position: absolute;
@@ -145,4 +146,19 @@ div.exec-soc-container {
     background: #cab;
     transform: rotate(90deg);
     transform-origin: right top;*/
+}
+
+.card {
+    margin: 25px;
+    box-shadow: 5px 5px #FFD13B;
+}
+
+img.profilePic {
+    width: 50px;
+    height: 50px;
+    border-radius: 35px;
+}
+
+img.profilePic:hover {
+    cursor: pointer;
 }

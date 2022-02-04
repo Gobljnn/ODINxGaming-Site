@@ -25,11 +25,11 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
         private readonly OdinXSiteMVC2Context _mySqlDb;
 
         public IndexModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
-                        IWebHostEnvironment webhost,OdinXSiteMVC2Context context){
+                        IWebHostEnvironment webhost,OdinXSiteMVC2Context mySqlDb){
             _authDb = userManager;
             _signInManager = signInManager;
             _webHostEnvironment = webhost;
-            _mySqlDb = context;
+            _mySqlDb = mySqlDb;
         }
 
         public string Username { get; set; }
@@ -73,7 +73,9 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
             
             //CANNOT FIND USER
             if (user == null) {
-                return NotFound($"Unable to load user with ID '{_authDb.GetUserId(User)}'.");
+                //return NotFound($"Unable to load user with ID '{_authDb.GetUserId(User)}'.");
+           
+
             }
 
             //IF USER FOUND
@@ -152,7 +154,7 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
 
                             await _authDb.UpdateAsync(user);*/
 
-            //AS LONG AS EMAIL ISN'T BLANK
+            //AS LONG AS IMAGE ISN'T BLANK
             if (imageFile != null) {
 
                 //get the extension of the user uploaded file
