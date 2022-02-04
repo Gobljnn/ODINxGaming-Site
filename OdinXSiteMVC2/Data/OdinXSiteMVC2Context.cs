@@ -41,16 +41,7 @@ namespace OdinXSiteMVC2.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<NewRegDTO>().HasData(
-                new NewRegDTO {
-                    Id = "xyz",
-                    firstName = "Test",
-                    lastName = "Admin",
-                    profilePic = "../../Assets/Pic/Fishboi8383logo.jpg",
-
-
-                }
-                );
+         
 
             modelBuilder.Entity<ExecSocial>().HasData(
                 new ExecSocial {
@@ -111,37 +102,16 @@ namespace OdinXSiteMVC2.Data
                 }
             );
 
-/*            modelBuilder.Entity<Roles>().HasData(
-                new Roles {
-                    roleID = 001,
-                    userId = "exec",
-                    gamerTag = "Gobljnn",
-                    roleName = "Admin",
-                    firstName = "Dammy",
-                    lastName = "Last Name",
-        
-                },
-
-                new Roles {
-                    roleID = 002,
-                    userId = "Member",
-                    gamerTag = "UserX",
-                    roleName = "Plebs",
-                    firstName = "UserXF",
-                    lastName = "Last Name",
-                },
-
-                new Roles {
-                    roleID = 003,
-                    userId = "Unver",
-                    gamerTag = "Dammy",
-                    roleName = "plebs x2",
-                    firstName = "unverF",
-                    lastName = "Last Name",
-                }
-            );*/
-
         }
+        //Mockdata is below
+        //add-migration -context OdinXSiteMVC2Context
+
+        //Mockdata is below
+        //add-migration -context OdinXSiteMVC2Context
+
+
+
+        public DbSet<OdinXSiteMVC2.Models.DTO.AdminEditDTO> AdminEditDTO { get; set; }
         
     }
 }

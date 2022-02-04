@@ -11,6 +11,29 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "AdminEditDTO",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    firstName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    lastName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    userName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    profilePic = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    gamerTag = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AdminEditDTO", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Exec",
                 columns: table => new
                 {
@@ -49,11 +72,19 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     roleID = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     roleName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AdminEditDTOId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.roleID);
+                    table.ForeignKey(
+                        name: "FK_Roles_AdminEditDTO_AdminEditDTOId",
+                        column: x => x.AdminEditDTOId,
+                        principalTable: "AdminEditDTO",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -194,6 +225,11 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                 column: "roleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Roles_AdminEditDTOId",
+                table: "Roles",
+                column: "AdminEditDTOId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserFiles_userID",
                 table: "UserFiles",
                 column: "userID");
@@ -215,6 +251,9 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 
             migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "AdminEditDTO");
         }
     }
 }

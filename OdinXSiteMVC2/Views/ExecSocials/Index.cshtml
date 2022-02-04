@@ -10,65 +10,21 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-@*<table class="table">*@
-    @*<thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.execName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.discordName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.discordLink)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ttvlink)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.instaLink)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.twitLink)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.tiktokLink)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.scLink)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.live)
-            </th>
-            <th></th>
-        </tr>
-    </thead>*@
-    @*<tbody>*@
-
-@*<div class="exec-soc-container"> 
-  *@
-    @foreach (var item in Model) {
-
-@*
-        <div class="exec-soc-container"> 
-            <div class="exec-socials">
-                
-            </div>
-        
-</div>
-*@
 
 
-<div class="card" style="width: 18rem;">
+
+@foreach (var item in Model) {
+
+<div class="card backdrop">
   <img src="@item.scLink" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">@Html.DisplayFor(modelItem => item.execName)</h5>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
   </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">An item</li>
-    <li class="list-group-item">A second item</li>
-    <li class="list-group-item">A third item</li>
+  <ul class="list-group list-group-flush ">
+    <li class="list-group-item backdrop">An item</li>
+    <li class="list-group-item backdrop">A second item</li>
+    <li class="list-group-item backdrop">A third item</li>
   </ul>
   <div class="card-body">
     <a href="#" class="card-link">Card link</a>
@@ -77,54 +33,4 @@
 </div>
 
     }
-@*</div>
-*@
-    
 
-
-@*@foreach (var item in Model) {
-    <div class="exec-soc-container">
-        <div class="exec-socials">
-            @Html.DisplayFor(modelItem => item.execName)
-        </div>
-    </div>
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.execId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.execName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.discordName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.discordLink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ttvlink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.instaLink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.twitLink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tiktokLink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.scLink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.live)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.socialID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.socialID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.socialID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>*@

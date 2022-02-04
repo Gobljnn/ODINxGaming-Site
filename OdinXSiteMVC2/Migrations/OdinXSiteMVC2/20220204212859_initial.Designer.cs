@@ -9,7 +9,7 @@ using OdinXSiteMVC2.Data;
 namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
 {
     [DbContext(typeof(OdinXSiteMVC2Context))]
-    [Migration("20220124234900_initial")]
+    [Migration("20220204212859_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,6 +18,31 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.13");
+
+            modelBuilder.Entity("OdinXSiteMVC2.Models.DTO.AdminEditDTO", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("firstName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("gamerTag")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("lastName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("profilePic")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("userName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdminEditDTO");
+                });
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.DTO.NewRegDTO", b =>
                 {
@@ -145,10 +170,15 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     b.Property<string>("roleID")
                         .HasColumnType("varchar(255)");
 
+                    b.Property<string>("AdminEditDTOId")
+                        .HasColumnType("varchar(255)");
+
                     b.Property<string>("roleName")
                         .HasColumnType("longtext");
 
                     b.HasKey("roleID");
+
+                    b.HasIndex("AdminEditDTOId");
 
                     b.ToTable("Roles");
                 });
@@ -248,6 +278,13 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     b.Navigation("Roles");
                 });
 
+            modelBuilder.Entity("OdinXSiteMVC2.Models.Roles.Role", b =>
+                {
+                    b.HasOne("OdinXSiteMVC2.Models.DTO.AdminEditDTO", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("AdminEditDTOId");
+                });
+
             modelBuilder.Entity("OdinXSiteMVC2.Models.Socials.ExecSocial", b =>
                 {
                     b.HasOne("OdinXSiteMVC2.Models.Exec", "Users")
@@ -264,6 +301,11 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                         .HasForeignKey("userID");
 
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("OdinXSiteMVC2.Models.DTO.AdminEditDTO", b =>
+                {
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }

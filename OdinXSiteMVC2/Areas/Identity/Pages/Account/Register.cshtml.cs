@@ -21,7 +21,7 @@ using OdinXSiteMVC2.Models.Roles;
 namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
-    //[Authorize(Roles = "Plebs")]
+    //[Authorize(Roles = "Member")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -144,17 +144,17 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
 
 
                     //ADD NEW USER TO A SPECIFIC ROLE
-                    _userManager.AddToRoleAsync(user, "Plebs").Wait();
+                    _userManager.AddToRoleAsync(user, "Member").Wait();
 
                     //capture id and role name in  new entity
-                    //FIND PLEBS ID
+                    //FIND Members ID
                     Role newRole = _roleManager.Roles
-                    .Where(p => p.Name.Equals("Plebs"))
+                    .Where(p => p.Name.Equals("Member"))
                     .Select(rid => new Role { roleID = rid.Id })
                     .FirstOrDefault();
 
                     //ADD NEW DATA TO NEWREGDTO
-                    newreg.role = "Plebs";
+                    newreg.role = "Member";
                     newreg.roleId = newRole.roleID;
 
 

@@ -1,34 +1,21 @@
-﻿@model IEnumerable<OdinXSiteMVC2.Models.DTO.NewRegDTO>
+﻿@model IEnumerable<OdinXSiteMVC2.Models.Roles.Role>
 
 @{
-    ViewData["Title"] = "Member List";
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1> @ViewData["Title"] </h1> 
+<h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New Role</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.roleName)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.firstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.lastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.gamerTag)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.role)
-            </th>
-            
             <th></th>
         </tr>
     </thead>
@@ -36,25 +23,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.roleName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.firstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.lastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.gamerTag)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.role)
-            </td>
-            
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.roleID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.roleID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.roleID">Delete</a>
             </td>
         </tr>
 }

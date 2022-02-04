@@ -14,7 +14,7 @@ using OdinXSiteMVC2.Models;
 
 namespace OdinXSiteMVC2.Controllers
 {
-    //[Authorize(Roles = "Exec")]
+    
     public class ExecsController : Controller
     {
         
@@ -76,6 +76,7 @@ namespace OdinXSiteMVC2.Controllers
 
 
         // GET: Execs/Details/5 - USED TO SEE SPECIFIC INFO ON EXECS - ADD A MODAL - AT A LATER DATE#GOB
+        [Authorize(Roles = "Master, Admin")]
         public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
@@ -94,6 +95,7 @@ namespace OdinXSiteMVC2.Controllers
         }
 
         // GET: Execs/Create - REMOVE  - AT A LATER DATE#GOB
+        [Authorize(Roles = "Master, Admin")]
         public IActionResult Create()
         {
             return View();
@@ -104,6 +106,7 @@ namespace OdinXSiteMVC2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Master, Admin")]
         public async Task<IActionResult> Create([Bind("execID,execFirstName,execLastName,execGamingTag,username,execTitle,favGame,execHierarchy,loginAmt,lastLogin, execPic")] Exec exec)
         {
             if (ModelState.IsValid)
@@ -116,6 +119,7 @@ namespace OdinXSiteMVC2.Controllers
         }
 
         // GET: Execs/Edit/5  - AT A LATER DATE#GOB
+        [Authorize(Roles = "Master, Admin")]
         public async Task<IActionResult> Edit(string? id)
         {
             if (id == null)
@@ -137,6 +141,7 @@ namespace OdinXSiteMVC2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Master, Admin")]
         public async Task<IActionResult> Edit(string id, [Bind("execID,execFirstName,execLastName,execGamingTag,username,execTitle,execHierarchy,favGame,loginAmt")] Exec exec)
         {
             if (id != exec.execID)
@@ -173,7 +178,7 @@ namespace OdinXSiteMVC2.Controllers
 
         /*------------------------
                         -----------------------------------------------*/
-
+        [Authorize(Roles = "Master, Admin")]
         public async Task<IActionResult> Imgupload(int? id) {
             if (id == null) {
                 return NotFound();
@@ -192,6 +197,7 @@ namespace OdinXSiteMVC2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Master, Admin")]
         //[ActionName("Imgupload")]
         public async Task<IActionResult> Imgupload(IFormFile imageFile, UserImage userImage ) {
 

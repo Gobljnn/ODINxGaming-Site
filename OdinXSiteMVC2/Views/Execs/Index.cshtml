@@ -12,7 +12,7 @@
 </p>*@
 
 <h2>Where did our name come from? <br> <br> </h2>
-<div class=container>
+<div>
     <p>
         We used to originally be called UAlberta Gaming, because it's founding members studied Engineering at the University of Alberta (U of A) 
         and the server originally only included students that went to the U of A. However, due to the founding members all graduating and having
@@ -26,7 +26,7 @@
 </div>
 
 <table class="table">
-    <thead>
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.execFirstName)
@@ -37,21 +37,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.execGamingTag)
             </th>
-           @* <th>
-                @Html.DisplayNameFor(model => model.username)
-            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.execTitle)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.execHierarchy)
-            </th>*@
-            @*<th>
-                @Html.DisplayNameFor(model => model.favGame)
-            </th>*@
-            @*<th>
-                @Html.DisplayNameFor(model => model.bio)
-            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -69,21 +57,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.execGamingTag)
             </td>
-           @* <td>
-                @Html.DisplayFor(modelItem => item.username)
-            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.execTitle)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.execHierarchy)
-            </td>*@
-            @*<td>
-                @Html.DisplayFor(modelItem => item.favGame)
-            </td>*@
-            @*<td>
-                @Html.DisplayFor(modelItem => item.bio)
-            </td>*@
+
             <td>
                 @*<a asp-action="Edit" asp-route-id="@item.execID">Edit</a> |*@
                 <a asp-action="Details" asp-route-id="@item.execID">Details</a> 
@@ -93,10 +70,28 @@
 }  
 </table>
 
+
+@*<div class="card" style="width: 18rem;">
+  <img src="@item.scLink" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">@Html.DisplayFor(modelItem => item.execName)</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">An item</li>
+    <li class="list-group-item">A second item</li>
+    <li class="list-group-item">A third item</li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>*@
+
 <!-- Modal -->
-<div class="modal fade " id="exampleModal" tabindex="-1" @*role="dialog"*@ aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" @*role="dialog"*@ aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-xl" @*role="document"*@>
-        <div class="modal-content">
+        <div class="modal-content backdrop">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
                 <h5 class="exec-title"></h5>
@@ -240,7 +235,7 @@ console.log("url= ", url);
 
 // using $ sign to access jQuery library
 $.get(url, function (data) {
-    console.log(data);
+    //console.log(data);
 $(".modal-body").html(data);
 $("#exampleModalLabel").html(tag + "'s profile // " + title);
     });
@@ -250,11 +245,15 @@ $("#exampleModalLabel").html(tag + "'s profile // " + title);
 function showImg(id){
     const url = "@Url.Action("Img", "Execs")/" + id;
     console.log("Show img fnc called" , id);
+    console.log(url);
+
 
 
     $.get(url, function (data) {
-    console.log(data);
-$("#execpics").attr("src", data);
+        //console.log(data);
+
+        $("#execpics").attr("src", data);
+    
     });
 }
 

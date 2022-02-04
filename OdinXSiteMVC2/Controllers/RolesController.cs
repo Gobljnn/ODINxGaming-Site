@@ -9,22 +9,23 @@ using Microsoft.EntityFrameworkCore;
 using OdinXSiteMVC2.Data;
 using OdinXSiteMVC2.Models.Roles;
 using OdinXSiteMVC2.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OdinXSiteMVC2.Controllers
 {
+
+    //[Authorize(Roles = "Master, Admin")]
     public class RolesController : Controller
     {
         
 
         private readonly ApplicationDbContext _authDb;
-        private readonly ApplicationDbContext _authDb2;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly OdinXSiteMVC2Context _mySqlDb;
         //private readonly Mapper _mapper = new Mapper();
 
         public RolesController(ApplicationDbContext authDb, RoleManager<IdentityRole> roleManager, OdinXSiteMVC2Context mySqlDb) {
             _authDb = authDb;
-          
             _roleManager = roleManager;
             _mySqlDb = mySqlDb;
         }
@@ -38,8 +39,10 @@ namespace OdinXSiteMVC2.Controllers
         // GET: Roles
         public async Task<IActionResult> Index()
         {
-            ViewBag.msg = "hello";
-            return View(await _mySqlDb.NewReg.ToListAsync());
+
+            //return View(await _mySqlDb.NewReg.ToListAsync());
+            return View(await _mySqlDb.Roles.ToListAsync());
+
         }
 
         // GET: Roles/Details/5
@@ -105,6 +108,9 @@ namespace OdinXSiteMVC2.Controllers
         {
             //initialize the user variable
             var user = await _mySqlDb.NewReg.FirstOrDefaultAsync(m => m.Id == id);
+
+
+
             userName = user.userName;
             ViewData["userName"] = userName;
 
@@ -128,8 +134,10 @@ namespace OdinXSiteMVC2.Controllers
 
             //Send data to view
             ViewData["allRoles"] = allRoles;
+            //ViewData["allRoles"] = new SelectList(allRoles, "Id", "Name");
             ViewData["allRoles"] = new SelectList(allRoles, "Id", "Name");
-    
+
+
             /*viewbag in ASP.NET MVC is used to transfer temporary data
             (which is not included in the model) from the controller to the view. 
             ID is going to be returned to the backend and roles will be presented
@@ -154,11 +162,14 @@ namespace OdinXSiteMVC2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("roleID,roleName")] Role roles)
+        public async Task<IActionResult> Edit(string id, [Bind("roleID,roleName")] Role roles, [Bind("firstName,lastName,userName,profilePic,gamerTag,role,roleId")] NewRegDTO newReg)
         {
+            var user = await _mySqlDb.NewReg.FirstOrDefaultAsync(m => m.Id == id);
+            roleId = roles.roleID;
+
             var role = await _roleManager.FindByIdAsync(roleId);
 
-            if (role.Id != role.Id)
+            if (role.Id == null)
             {
                 return NotFound();
             }
@@ -183,7 +194,7 @@ namespace OdinXSiteMVC2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(roles);
+            return View();
         }
 
         // GET: Roles/Delete/5

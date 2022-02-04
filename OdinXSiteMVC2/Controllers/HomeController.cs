@@ -25,6 +25,12 @@ namespace OdinXSiteMVC2.Controllers {
             return View("../ExecSocials/Index");
 
         }
+
+        public IActionResult Discord () {
+            return View();
+
+        }
+
         public IActionResult Privacy() {
             return View();
         }
@@ -33,5 +39,7 @@ namespace OdinXSiteMVC2.Controllers {
         public IActionResult Error() {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+  
     }
 }
