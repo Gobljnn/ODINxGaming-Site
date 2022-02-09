@@ -21,8 +21,6 @@ function setInfo(id) {
 
 function getInfo() {
     id = localStorage.getItem("ID");
-   
-
     console.log("local storage my id: " + id)
     //using $ sign to access jQuery library
 }

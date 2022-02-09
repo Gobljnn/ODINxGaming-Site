@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OdinXSiteMVC2.Data;
 
-namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
+namespace OdinXSiteMVC2.Migrations
 {
     [DbContext(typeof(OdinXSiteMVC2Context))]
-    [Migration("20220204212859_initial")]
+    [Migration("20220205174028_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,15 +78,6 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                     b.HasIndex("roleId");
 
                     b.ToTable("NewReg");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "xyz",
-                            firstName = "Test",
-                            lastName = "Admin",
-                            profilePic = "../../Assets/Pic/Fishboi8383logo.jpg"
-                        });
                 });
 
             modelBuilder.Entity("OdinXSiteMVC2.Models.Exec", b =>
@@ -132,18 +123,7 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                         new
                         {
                             execID = "001",
-                            bio = " Oluwadamilola Gobljnn Adebayo (Dammy), a chemical engineer, one of the co-founders of ODINxGAMING goes by the gamer His favourite genre to play is FPS, which includes a shit - ton of Overwatch and Call of Duty.He also dabbles in a bit of Rocket League buthe dog water.Gobljnn is ODINxGaming's Lead Developer and UI Support member.",
-                            execFirstName = "Damm",
-                            execGamingTag = "Gobljnn",
-                            execHierarchy = "Founding",
-                            execLastName = "Adebayo",
-                            execTitle = "Programmer",
-                            favGame = "OW",
-                            username = "Gobljnn"
-                        },
-                        new
-                        {
-                            execID = "002",
+                            bio = "Ibukun \"Kitan 3000\" Adebowale (Kitan), a civil engineer, one of the co-founders of ODINxGAMING goes by the gamertag Kitan 3000 .His favourite genres to play are FPS and racing games.His gaming forte includes Overwatch, Call of Duty, Rocket League, Forza, and girls hearts (jokes). His role within ODINxGAMING is to oversee all server and organizational management.He also handles all disciplinary actions within our organization.",
                             execFirstName = "Kitan",
                             execGamingTag = "Kitan3000",
                             execHierarchy = "Founding",
@@ -151,17 +131,6 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                             execTitle = "Photographer",
                             favGame = "COD",
                             username = "Kitan3000"
-                        },
-                        new
-                        {
-                            execID = "003",
-                            execFirstName = "Nathan",
-                            execGamingTag = "Fishboy8383",
-                            execHierarchy = "Founding",
-                            execLastName = "Stayer",
-                            execTitle = "Community Manager",
-                            favGame = "League",
-                            username = "Fishboy8383"
                         });
                 });
 
@@ -236,14 +205,6 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
                             execName = "Gobljnn",
                             scLink = "soundcloud.com/gobljnn",
                             ttvlink = "twitch.tv/gobljnn"
-                        },
-                        new
-                        {
-                            socialID = 2,
-                            execId = "001",
-                            execName = "K3k",
-                            scLink = "soundcloud.com/k3k",
-                            ttvlink = "twitch.tv/k3k"
                         });
                 });
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
+namespace OdinXSiteMVC2.Migrations
 {
     public partial class initial : Migration
     {
@@ -192,27 +192,12 @@ namespace OdinXSiteMVC2.Migrations.OdinXSiteMVC2
             migrationBuilder.InsertData(
                 table: "Exec",
                 columns: new[] { "execID", "bio", "execFirstName", "execGamingTag", "execHierarchy", "execLastName", "execPic", "execTitle", "favGame", "loginAmt", "username" },
-                values: new object[,]
-                {
-                    { "001", " Oluwadamilola Gobljnn Adebayo (Dammy), a chemical engineer, one of the co-founders of ODINxGAMING goes by the gamer His favourite genre to play is FPS, which includes a shit - ton of Overwatch and Call of Duty.He also dabbles in a bit of Rocket League buthe dog water.Gobljnn is ODINxGaming's Lead Developer and UI Support member.", "Damm", "Gobljnn", "Founding", "Adebayo", null, "Programmer", "OW", null, "Gobljnn" },
-                    { "002", null, "Kitan", "Kitan3000", "Founding", "Adebowale", null, "Photographer", "COD", null, "Kitan3000" },
-                    { "003", null, "Nathan", "Fishboy8383", "Founding", "Stayer", null, "Community Manager", "League", null, "Fishboy8383" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "NewReg",
-                columns: new[] { "Id", "email", "firstName", "gamerTag", "lastName", "profilePic", "role", "roleId", "userName" },
-                values: new object[] { "xyz", null, "Test", null, "Admin", "../../Assets/Pic/Fishboi8383logo.jpg", null, null, null });
+                values: new object[] { "001", "Ibukun \"Kitan 3000\" Adebowale (Kitan), a civil engineer, one of the co-founders of ODINxGAMING goes by the gamertag Kitan 3000 .His favourite genres to play are FPS and racing games.His gaming forte includes Overwatch, Call of Duty, Rocket League, Forza, and girls hearts (jokes). His role within ODINxGAMING is to oversee all server and organizational management.He also handles all disciplinary actions within our organization.", "Kitan", "Kitan3000", "Founding", "Adebowale", null, "Photographer", "COD", null, "Kitan3000" });
 
             migrationBuilder.InsertData(
                 table: "ExecSocial",
                 columns: new[] { "socialID", "discordLink", "discordName", "execId", "execName", "instaLink", "live", "logo", "scLink", "tiktokLink", "ttvlink", "twitLink" },
                 values: new object[] { 1, null, null, "001", "Gobljnn", null, null, null, "soundcloud.com/gobljnn", null, "twitch.tv/gobljnn", null });
-
-            migrationBuilder.InsertData(
-                table: "ExecSocial",
-                columns: new[] { "socialID", "discordLink", "discordName", "execId", "execName", "instaLink", "live", "logo", "scLink", "tiktokLink", "ttvlink", "twitLink" },
-                values: new object[] { 2, null, null, "001", "K3k", null, null, null, "soundcloud.com/k3k", null, "twitch.tv/k3k", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExecSocial_execId",

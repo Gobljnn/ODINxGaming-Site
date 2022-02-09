@@ -13,7 +13,7 @@ using OdinXSiteMVC2.Models.DTO;
 
 namespace OdinXSiteMVC2.Controllers
 {
-    //[Authorize(Roles = "Master, Admin")]
+    [Authorize(Roles = "Master, Admin")]
     public class AdminController : Controller
     {
         private readonly OdinXSiteMVC2Context _mySqlDb;
@@ -140,9 +140,14 @@ namespace OdinXSiteMVC2.Controllers
 
                         };
 
+                        
+
                         _mySqlDb.Exec.Add(newExec);
                         _mySqlDb.SaveChanges();
                     }
+
+                    _user.role = _role.Name;
+                    _mySqlDb.SaveChanges();
 
                     //_mySqlDb.Update(newRegDTO);
 

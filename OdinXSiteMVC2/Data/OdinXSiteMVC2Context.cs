@@ -41,65 +41,66 @@ namespace OdinXSiteMVC2.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
 
-         
+
 
             modelBuilder.Entity<ExecSocial>().HasData(
-                new ExecSocial {
-                    socialID = 1,
-                    execId = "001",
-                    execName = "Gobljnn",
-                    ttvlink = "twitch.tv/gobljnn",
-                    scLink = "soundcloud.com/gobljnn",
+            new ExecSocial {
+                socialID = 1,
+                execId = "001",
+                execName = "Gobljnn",
+                ttvlink = "twitch.tv/gobljnn",
+                scLink = "soundcloud.com/gobljnn",
 
-                },
+            }
 
-                new ExecSocial {
-                    socialID = 2,
-                    execId = "001",
-                    execName = "K3k",
-                    ttvlink = "twitch.tv/k3k",
-                    scLink = "soundcloud.com/k3k",
+            //new ExecSocial {
+            //    socialID = 2,
+            //    execId = "001",
+            //    execName = "K3k",
+            //    ttvlink = "twitch.tv/k3k",
+            //    scLink = "soundcloud.com/k3k",
 
-                }
-                );
+            //}
+            );
 
             modelBuilder.Entity<Exec>().HasData(
-                new Exec {
-                    execID = "001",
-                    execFirstName = "Damm",
-                    execLastName = "Adebayo",
-                    username = "Gobljnn",
-                    execGamingTag = "Gobljnn",
-                    execTitle = "Programmer",
-                    execHierarchy = "Founding",
-                    favGame = "OW",
-                    execPic = null,
-                    bio = " Oluwadamilola Gobljnn Adebayo (Dammy), a chemical engineer, one of the co-founders of ODINxGAMING goes by the gamer His favourite genre to play is FPS, which includes a shit - ton of Overwatch and Call of Duty.He also dabbles in a bit of Rocket League buthe dog water.Gobljnn is ODINxGaming\'s Lead Developer and UI Support member."
-                },
+            //    new Exec {
+            //        execID = "001",
+            //        execFirstName = "Damm",
+            //        execLastName = "Adebayo",
+            //        username = "Gobljnn",
+            //        execGamingTag = "Gobljnn",
+            //        execTitle = "Programmer",
+            //        execHierarchy = "Founding",
+            //        favGame = "OW",
+            //        execPic = null,
+            //        bio = " Oluwadamilola Gobljnn Adebayo (Dammy), a chemical engineer, one of the co-founders of ODINxGAMING goes by the gamer His favourite genre to play is FPS, which includes a shit - ton of Overwatch and Call of Duty.He also dabbles in a bit of Rocket League buthe dog water.Gobljnn is ODINxGaming\'s Lead Developer and UI Support member."
+            //    },
 
-                new Exec {
-                    execID = "002",
-                    execFirstName = "Kitan",
-                    execLastName = "Adebowale",
-                    username = "Kitan3000",
-                    execGamingTag = "Kitan3000",
-                    execTitle = "Photographer",
-                    execHierarchy = "Founding",
-                    favGame = "COD",
-                    execPic = null
-                },
+            new Exec {
+                execID = "001",
+                execFirstName = "Kitan",
+                execLastName = "Adebowale",
+                username = "Kitan3000",
+                execGamingTag = "Kitan3000",
+                execTitle = "Photographer",
+                execHierarchy = "Founding",
+                favGame = "COD",
+                execPic = null,
+                bio = "Ibukun \"Kitan 3000\" Adebowale (Kitan), a civil engineer, one of the co-founders of ODINxGAMING goes by the gamertag Kitan 3000 .His favourite genres to play are FPS and racing games.His gaming forte includes Overwatch, Call of Duty, Rocket League, Forza, and girls hearts (jokes). His role within ODINxGAMING is to oversee all server and organizational management.He also handles all disciplinary actions within our organization."
+            }
 
-                new Exec {
-                    execID = "003",
-                    execFirstName = "Nathan",
-                    execLastName = "Stayer",
-                    username = "Fishboy8383",
-                    execGamingTag = "Fishboy8383",
-                    execTitle = "Community Manager",
-                    execHierarchy = "Founding",
-                    favGame = "League",
-                    execPic = null
-                }
+            //    new Exec {
+            //        execID = "003",
+            //        execFirstName = "Nathan",
+            //        execLastName = "Stayer",
+            //        username = "Fishboy8383",
+            //        execGamingTag = "Fishboy8383",
+            //        execTitle = "Community Manager",
+            //        execHierarchy = "Founding",
+            //        favGame = "League",
+            //        execPic = null
+            //    }
             );
 
         }

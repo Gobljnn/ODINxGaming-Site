@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace OdinXSiteMVC2.Migrations
+namespace OdinXSiteMVC2.Migrations.ApplicationDb
 {
     public partial class initial : Migration
     {
