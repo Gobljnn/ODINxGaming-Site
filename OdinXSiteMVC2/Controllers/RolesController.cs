@@ -183,14 +183,14 @@ namespace OdinXSiteMVC2.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RolesExists(roles.roleID))
+                    /*if (!RolesExists(roles.roleID))
                     {
                         return NotFound();
                     }
                     else
                     {
                         throw;
-                    }
+                    }*/
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -226,9 +226,9 @@ namespace OdinXSiteMVC2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RolesExists(string id)
+       /* private bool RolesExists(string id)
         {
-            return _authDb.Roles.Any(e => e.roleID == id);
-        }
+            //return _authDb.Roles.Any(e => e.roleID == id);
+        }*/
     }
 }

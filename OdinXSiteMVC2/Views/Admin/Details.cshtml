@@ -1,4 +1,4 @@
-﻿@model OdinXSiteMVC2.Models.DTO.NewRegDTO
+﻿@model OdinXSiteMVC2.Data.ApplicationUser
 
 @{
     ViewData["Title"] = "Details";
@@ -8,7 +8,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>NewRegDTO</h4>
+    <h4>AdminEdit</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -24,22 +24,10 @@
             @Html.DisplayFor(model => model.lastName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.userName)
+            @Html.DisplayNameFor(model => model.UserName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.userName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.profilePic)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.profilePic)
+            @Html.DisplayFor(model => model.UserName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.gamerTag)
@@ -48,16 +36,28 @@
             @Html.DisplayFor(model => model.gamerTag)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.role)
+            @Html.DisplayNameFor(model => model.bio)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.role)
+            @Html.DisplayFor(model => model.bio)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Roles)
+            @Html.DisplayNameFor(model => model.execBio)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Roles.roleID)
+            @Html.DisplayFor(model => model.execBio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.profilePic)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.profilePic)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.execPic)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.execPic)
         </dd>
     </dl>
 </div>

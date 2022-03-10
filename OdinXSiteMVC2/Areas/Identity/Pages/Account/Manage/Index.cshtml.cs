@@ -22,14 +22,14 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<ApplicationUser> _authDb;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly OdinXSiteMVC2Context _mySqlDb;
+        //private readonly OdinXSiteMVC2Context _mySqlDb;
 
         public IndexModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
                         IWebHostEnvironment webhost,OdinXSiteMVC2Context mySqlDb){
             _authDb = userManager;
             _signInManager = signInManager;
             _webHostEnvironment = webhost;
-            _mySqlDb = mySqlDb;
+            //_mySqlDb = mySqlDb;
         }
 
         public string Username { get; set; }
@@ -69,35 +69,30 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await _authDb.GetUserAsync(User);    
+            var user = await _authDb.GetUserAsync(User);
             
             //CANNOT FIND USER
             if (user == null) {
                 //return NotFound($"Unable to load user with ID '{_authDb.GetUserId(User)}'.");
-           
-
             }
 
             //IF USER FOUND
             //CREATE VAR OF USER REPO
             var userrepo = "user_" + user.Id.Substring(0, 5) + "X_";
 
-            //USING LAMBDA EXPRESSION FIND USER FROM PERSONAL DB THAT HAS THE SAME USER ID AS AUTHENTICATION DB
-            NewRegDTO myUser = _mySqlDb.NewReg
-                .Where(p => p.Id.Equals(user.Id))
-                .Select(imgs => new NewRegDTO {  profilePic = imgs.profilePic})
-                .FirstOrDefault();
-
             //DEFAULT PATH FOR DEFAULT PROFILE PIC
-            var def = "../../Assets/Pic/26293.jpg";
+            var def = "../../Assets/Pic/defaultPic.jpg";
 
             //PATH FOR PERSONAL PROFILE PIC
-            if (myUser.profilePic.Equals(def)) {
+            if ( (user.profilePic == null) ) {
                 
                 ViewData["ID"] = def;
             }
+            else if (user.profilePic.Equals(def)) {
+                ViewData["ID"] = def;
+            }
             else {
-                ViewData["ID"] = myUser.profilePic;
+                ViewData["ID"] = user.profilePic;
             }
 
             await LoadAsync(user);
@@ -106,11 +101,6 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync(IFormFile imageFile, UserImage userImage) {
             var user = await _authDb.GetUserAsync(User);
-
-            //FIND USER IN PERSONAL DB THAT MATCHES AUTHEN ID
-            var myUser = _mySqlDb.NewReg
-                .Where(p => p.Id == user.Id)
-                .FirstOrDefault();
 
             //CANNOT FIND USER
             if (user == null)
@@ -160,6 +150,7 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
                 //get the extension of the user uploaded file
                 string ext = Path.GetExtension(imageFile.FileName);
                 var id = "user_" + user.Id.Substring(0, 5) + "X_";
+                var picname = imageFile.FileName;
 
                 //jpg, jpeg, png, gif allowed
                 if (ext == ".jpg" || ext == ".png" || ext == ".jpeg" || ext == ".jif") {
@@ -176,7 +167,9 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
                     }
 
                     //save file in user folder name and save in root with new name.
-                    var saveimg = Path.Combine(pathString, "ProfilePhoto" + ext);
+                    //var saveimg = Path.Combine(pathString, "ProfilePhoto" + ext);
+                    var saveimg = Path.Combine(pathString, picname);
+
 
                     //create the file
                     using (var uploadingimg = new FileStream(saveimg, FileMode.Create)) {
@@ -191,19 +184,19 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account.Manage
 
                         //SAVE NEW PATH
                         userImage.imagePath = saveimg;
-                        
+
                         //CHANGE PROFILE PIC SOURCE IN PERSONAL DB
-                        myUser.profilePic = "../../unver_images/" + id + "/ProfilePhoto" + ext;
+                        //user.profilePic = "../../unver_images/" + id + "/ProfilePhoto" + ext;
+                        user.profilePic = "../../unver_images/" + id + "/"+ picname;
+
 
                         //USER ID - REMOVE  - AT A LATER DATE#GOB
                         //userImage.userID = user.Id.Substring(0, 5);
                         userImage.userID = user.Id;
 
                         // add and db save
-                        await _mySqlDb.UserFiles.AddAsync(userImage);
-                        
+                        await _authDb.UpdateAsync(user);
 
-                        await _mySqlDb.SaveChangesAsync();
                         ViewData["Message"] = "The Selected File " + imageFile.FileName + " has been saved ";
                     }
                 }

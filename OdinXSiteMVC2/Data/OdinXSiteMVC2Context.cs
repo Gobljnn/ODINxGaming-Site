@@ -113,6 +113,15 @@ namespace OdinXSiteMVC2.Data
 
 
         public DbSet<OdinXSiteMVC2.Models.DTO.AdminEditDTO> AdminEditDTO { get; set; }
+        //Mockdata is below
+        //add-migration -context OdinXSiteMVC2Context
+
+        //Mockdata is below
+        //add-migration -context OdinXSiteMVC2Context
+
+
+
+        public DbSet<OdinXSiteMVC2.Models.DTO.RoleDTO> RoleDTO { get; set; }
         
     }
 }

@@ -25,11 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Assets\Pic\26293.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Interface\" />
+    <Folder Include="wwwroot\unver_images\" />
   </ItemGroup>
 
 </Project>

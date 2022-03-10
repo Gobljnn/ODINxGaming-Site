@@ -1,4 +1,4 @@
-﻿@model OdinXSiteMVC2.Models.DTO.NewRegDTO
+﻿@model OdinXSiteMVC2.Models.Admin.Admin
 
 @{
     ViewData["Title"] = "Create";
@@ -7,7 +7,7 @@
 
 <h1>Create</h1>
 
-<h4>NewRegDTO</h4>
+<h4>AdminEdit</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -29,19 +29,9 @@
                 <span asp-validation-for="lastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="userName" class="control-label"></label>
-                <input asp-for="userName" class="form-control" />
-                <span asp-validation-for="userName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="email" class="control-label"></label>
-                <input asp-for="email" class="form-control" />
-                <span asp-validation-for="email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="profilePic" class="control-label"></label>
-                <input asp-for="profilePic" class="form-control" />
-                <span asp-validation-for="profilePic" class="text-danger"></span>
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="gamerTag" class="control-label"></label>
@@ -49,13 +39,24 @@
                 <span asp-validation-for="gamerTag" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="role" class="control-label"></label>
-                <input asp-for="role" class="form-control" />
-                <span asp-validation-for="role" class="text-danger"></span>
+                <label asp-for="bio" class="control-label"></label>
+                <input asp-for="bio" class="form-control" />
+                <span asp-validation-for="bio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="roleId" class="control-label"></label>
-                <select asp-for="roleId" class ="form-control" asp-items="ViewBag.roleId"></select>
+                <label asp-for="execBio" class="control-label"></label>
+                <input asp-for="execBio" class="form-control" />
+                <span asp-validation-for="execBio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="profilePic" class="control-label"></label>
+                <input asp-for="profilePic" class="form-control" />
+                <span asp-validation-for="profilePic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="execPic" class="control-label"></label>
+                <input asp-for="execPic" class="form-control" />
+                <span asp-validation-for="execPic" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

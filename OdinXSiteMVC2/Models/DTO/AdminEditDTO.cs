@@ -16,10 +16,11 @@ namespace OdinXSiteMVC2.Models.DTO
 
         public string userName { get; set; }
 
-        public string profilePic { get; set; }
-
         public string gamerTag { get; set; }
-
+        public string bio { get; set; }
+        public string execBio { get; set; }
+        public string profilePic { get; set; }
+        public string execPic { get; set; }
         public List<Role> Roles { get; set; }
 
 

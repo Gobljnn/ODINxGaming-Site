@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OdinXSiteMVC2.Data;
-using OdinXSiteMVC2.Models;
-using OdinXSiteMVC2.Models.DTO;
+using OdinXSiteMVC2.Models.Admin;
 
 namespace OdinXSiteMVC2.Controllers
 {
-    [Authorize(Roles = "Master, Admin")]
     public class AdminController : Controller
     {
         private readonly OdinXSiteMVC2Context _mySqlDb;
@@ -29,14 +26,14 @@ namespace OdinXSiteMVC2.Controllers
             _userManager = userManager;
         }
 
-        // GET: Admin
+        // GET: AdminEdits
         public async Task<IActionResult> Index()
         {
-            var members = _mySqlDb.NewReg.Include(n => n.Roles);
+            var members = _authDb.Users;
             return View(await members.ToListAsync());
         }
 
-        // GET: Admin/Details/5
+        // GET: AdminEdits/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -44,42 +41,53 @@ namespace OdinXSiteMVC2.Controllers
                 return NotFound();
             }
 
-            var newRegDTO = await _mySqlDb.NewReg
-                .Include(n => n.Roles)
+            var adminEdit = await _authDb.Users
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (newRegDTO == null)
+            if (adminEdit == null)
             {
                 return NotFound();
             }
 
-            return View(newRegDTO);
+            return View(adminEdit);
         }
 
-        // GET: Admin/Create
+        // GET: AdminEdits/Create
         public IActionResult Create()
         {
-            ViewData["roleId"] = new SelectList(_mySqlDb.Roles, "roleID", "roleID");
             return View();
         }
 
-        // POST: Admin/Create
+        // POST: AdminEdits/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,firstName,lastName,userName,email,profilePic,gamerTag,role,roleId")] NewRegDTO newRegDTO)
+        //bind has to exactly match the variable in model
+        public async Task<IActionResult> Create([Bind("Id,firstName,lastName,UserName,gamerTag,bio,execBio,profilePic,execPic")] ApplicationUser adminEdit) 
         {
             if (ModelState.IsValid)
             {
-                _mySqlDb.Add(newRegDTO);
-                await _mySqlDb.SaveChangesAsync();
+                var createUser = new ApplicationUser {
+                    firstName = adminEdit.firstName,
+                    lastName = adminEdit.lastName,
+                    UserName = adminEdit.UserName,
+                    gamerTag = adminEdit.gamerTag,
+                    bio = adminEdit.bio,
+                    execBio = adminEdit.execBio,
+                    profilePic = adminEdit.profilePic,
+                    execPic = adminEdit.execPic
+                };
+
+                await _userManager.CreateAsync(createUser);
+                _authDb.Add(adminEdit);
+                await _authDb.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["roleId"] = new SelectList(_mySqlDb.Roles, "roleID", "roleID", newRegDTO.roleId);
-            return View(newRegDTO);
+            return View(adminEdit);
         }
 
-        // GET: Admin/Edit/5
+        // GET: AdminEdits/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -87,27 +95,47 @@ namespace OdinXSiteMVC2.Controllers
                 return NotFound();
             }
 
-            var newRegDTO = await _mySqlDb.NewReg.FindAsync(id);
-            if (newRegDTO == null)
+            var adminEdit = await _authDb.Users.FindAsync(id);
+            if (adminEdit == null)
             {
                 return NotFound();
             }
-            ViewData["roleId"] = new SelectList(_mySqlDb.Roles, "roleID", "roleName", newRegDTO.roleId);
-            return View(newRegDTO);
+            return View(adminEdit);
         }
 
-        // POST: Admin/Edit/5
+        // POST: AdminEdits/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,firstName,lastName,userName,email,profilePic,gamerTag,role,roleId")] NewRegDTO newRegDTO)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,firstName,lastName,UserName,gamerTag,bio,execBio,profilePic,execPic")] ApplicationUser adminEdit)
         {
+            //create an object for the current user to Edit
             var user = await _userManager.FindByIdAsync(id);
-            var _user = await _mySqlDb.NewReg.FindAsync(id);
 
+            //create new edit object with Application user as its model
+            var editUser = new ApplicationUser {
+                firstName = adminEdit.firstName,
+                lastName = adminEdit.lastName,
+                UserName = adminEdit.UserName,
+                gamerTag = adminEdit.gamerTag,
+                bio = adminEdit.bio,
+                execBio = adminEdit.execBio,
+                profilePic = adminEdit.profilePic,
+                execPic = adminEdit.execPic
+            };
 
-            if (id != newRegDTO.Id)
+            //change user with new updated info
+            user.firstName = editUser.firstName;
+            user.lastName = adminEdit.lastName;
+            user.UserName = adminEdit.UserName;
+            user.gamerTag = adminEdit.gamerTag;
+            user.bio = adminEdit.bio;
+            user.execBio = adminEdit.execBio;
+            user.profilePic = adminEdit.profilePic;
+            user.execPic = adminEdit.execPic;
+
+            if (id != adminEdit.Id)
             {
                 return NotFound();
             }
@@ -117,48 +145,13 @@ namespace OdinXSiteMVC2.Controllers
                 try
                 {
 
-                    //Find the role name by Id
-                    var _role = await _roleManager.FindByIdAsync(newRegDTO.roleId);
-
-                    //add user to role
-                    var changerole = await _userManager.AddToRoleAsync(user, _role.Name);
-
-                    //Get role name
-                    newRegDTO.role = _role.Name;
-
-                    //update
+                    //update the database using userManager
                     await _userManager.UpdateAsync(user);
-
-                    if (_role.Name.Equals("Admin")) {
-
-                        var newExec = new Exec {
-                            execID = user.Id,
-                            execFirstName = user.firstName,
-                            execLastName = user.lastName,
-                            execGamingTag = user.UserName,
-                            execPic = _user.profilePic
-
-                        };
-
-                        
-
-                        _mySqlDb.Exec.Add(newExec);
-                        _mySqlDb.SaveChanges();
-                    }
-
-                    _user.role = _role.Name;
-                    _mySqlDb.SaveChanges();
-
-                    //_mySqlDb.Update(newRegDTO);
-
-
-
-
+                    
                 }
-
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NewRegDTOExists(newRegDTO.Id))
+                    if (!AdminEditExists(adminEdit.Id))
                     {
                         return NotFound();
                     }
@@ -169,12 +162,10 @@ namespace OdinXSiteMVC2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            await _mySqlDb.SaveChangesAsync();
-            ViewData["roleId"] = new SelectList(_mySqlDb.Roles, "roleID", "roleID", newRegDTO.roleId);
-            return View(newRegDTO);
+            return View(adminEdit);
         }
 
-        // GET: Admin/Delete/5
+        // GET: AdminEdits/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -182,31 +173,30 @@ namespace OdinXSiteMVC2.Controllers
                 return NotFound();
             }
 
-            var newRegDTO = await _mySqlDb.NewReg
-                .Include(n => n.Roles)
+            var adminEdit = await _authDb.Users
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (newRegDTO == null)
+            if (adminEdit == null)
             {
                 return NotFound();
             }
 
-            return View(newRegDTO);
+            return View(adminEdit);
         }
 
-        // POST: Admin/Delete/5
+        // POST: AdminEdits/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var newRegDTO = await _mySqlDb.NewReg.FindAsync(id);
-            _mySqlDb.NewReg.Remove(newRegDTO);
-            await _mySqlDb.SaveChangesAsync();
+            var adminEdit = await _authDb.Users.FindAsync(id);
+            _authDb.Users.Remove(adminEdit);
+            await _authDb.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool NewRegDTOExists(string id)
+        private bool AdminEditExists(string id)
         {
-            return _mySqlDb.NewReg.Any(e => e.Id == id);
+            return _authDb.AdminEdit.Any(e => e.Id == id);
         }
     }
 }

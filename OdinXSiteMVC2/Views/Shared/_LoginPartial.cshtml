@@ -6,9 +6,9 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject OdinXSiteMVC2Context _mySqlDb
-
+@inject ApplicationDbContext _authDb
 @{
-    //http:schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier: 224ea5ae-0209-466f-9177-f6e9634bd344
+    
 }
 
 <div class="navbar-nav">
@@ -17,13 +17,16 @@
     
 {
     //CLAIMTYPE.NAMEIDENTIFIER IS USED TO FIND THE ID OF THE USER - REMOVE THE LINK FROM ABOVE
-    string id = User.FindFirst(ClaimTypes.NameIdentifier).ToString().Remove(0,70);
+    
+    var user = UserManager.GetUserAsync(User);
+    var id = user.Result.Id;
 
-    //FIND THE PIC LCOATION IN DB 
-    string myUser = _mySqlDb.NewReg
-        .Where(p => p.Id.Equals(id))
-        .Select(imgs  => imgs.profilePic)
-        .FirstOrDefault();
+        //FIND THE PIC LCOATION IN DB 
+    string myUser = user.Result.profilePic;
+
+        if (myUser == null) {
+            myUser = "../../Assets/Pic/defaultPic.jpg";
+        } 
 
     <div class="nav-item log"> 
         <img class="profilePic" src= "@myUser"/> 

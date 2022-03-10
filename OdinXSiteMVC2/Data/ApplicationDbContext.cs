@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using OdinXSiteMVC2.Models.Roles;
 using OdinXSiteMVC2.Models.DTO;
+using OdinXSiteMVC2.Models.Admin;
 
 namespace OdinXSiteMVC2.Data {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
@@ -26,11 +27,25 @@ namespace OdinXSiteMVC2.Data {
                 .Property(e => e.lastName)
                 .HasMaxLength(250);
 
+            //modelBuilder.Entity<ApplicationUser>()
+            //    .Property(e => e.bio)
+            //    .HasMaxLength(250);
+
+            //modelBuilder.Entity<ApplicationUser>()
+            //    .Property(e => e.execBio)
+            //    .HasMaxLength(250);
+
+            //modelBuilder.Entity<ApplicationUser>()
+            //    .Property(e => e.lastName)
+            //    .HasMaxLength(250);
+
         }
 
-        public DbSet<OdinXSiteMVC2.Models.Roles.Role> Roles { get; set; }
+        public DbSet<OdinXSiteMVC2.Models.Roles.Role> Role { get; set; }
 
-        public DbSet<OdinXSiteMVC2.Models.DTO.NewRegDTO> NewRegDTO { get; set; }
+        public DbSet<OdinXSiteMVC2.Models.Admin.Admin> AdminEdit { get; set; }
+
+        //public DbSet<OdinXSiteMVC2.Models.DTO.NewRegDTO> NewRegDTO { get; set; }
 
         //Mockdata is below
         //add-migration -context OdinXSiteMVC2Context

@@ -108,12 +108,12 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
                 
 
                 //copy only id, name and username to personal db
-                var newreg = new NewRegDTO {
-                    firstName = Input.firstName,
-                    userName = Input.userName,
-                    lastName = Input.lastName,
-                    email = Input.Email,
-                };
+                //var newreg = new NewRegDTO {
+                //    firstName = Input.firstName,
+                //    userName = Input.userName,
+                //    lastName = Input.lastName,
+                //    email = Input.Email,
+                //};
 
                 
 
@@ -137,30 +137,31 @@ namespace OdinXSiteMVC2.Areas.Identity.Pages.Account
                     
 
                     //add Indentity created items to personal db
-                    newreg.Id = user.Id;
-                    newreg.profilePic = "../../Assets/Pic/26293.jpg";
-                    
+                    //newreg.Id = user.Id;
+                    //newreg.profilePic = "../../Assets/Pic/26293.jpg";
 
-
+                    //create profile pic
+                    user.profilePic = "../../Assets/Pic/defaultPic.png";
 
                     //ADD NEW USER TO A SPECIFIC ROLE
                     _userManager.AddToRoleAsync(user, "Member").Wait();
 
                     //capture id and role name in  new entity
+
                     //FIND Members ID
-                    Role newRole = _roleManager.Roles
-                    .Where(p => p.Name.Equals("Member"))
-                    .Select(rid => new Role { roleID = rid.Id })
-                    .FirstOrDefault();
+                    //Role newRole = _roleManager.Roles
+                    //.Where(p => p.Name.Equals("Member"))
+                    //.Select(rid => new Role { roleID = rid.Id })
+                    //.FirstOrDefault();
 
                     //ADD NEW DATA TO NEWREGDTO
-                    newreg.role = "Member";
-                    newreg.roleId = newRole.roleID;
+                    //newreg.role = "Member";
+                    //newreg.roleId = newRole.roleID;
 
 
                     //ADD NEW  USER TO TO PERSONAL DB
-                    _mySqlDb.NewReg.Add(newreg);
-                    _mySqlDb.SaveChanges();
+                    //_mySqlDb.NewReg.Add(newreg);
+                    //_mySqlDb.SaveChanges();
 
                     //var userFiles = new UserImage { userID = newreg.Id };
                     //userFiles.imagePath = newreg.profilePic;

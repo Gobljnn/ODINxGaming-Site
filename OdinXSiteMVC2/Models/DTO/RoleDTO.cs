@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace OdinXSiteMVC2.Models.DTO
 {
-    public class RoleDTO
+    public class RoleDTO : IdentityRole 
     {
         public string roleID { get; set; }
 
